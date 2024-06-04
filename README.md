@@ -1,3 +1,16 @@
+# Images
+
+<img width="1440" alt="Screenshot 2024-06-04 at 7 53 10 PM" src="https://github.com/harshboghara2004/Art-Gallery/assets/104019887/e496be87-acb6-4095-938a-88b8fe8a36ea">
+
+<img width="1440" alt="Screenshot 2024-06-04 at 7 53 28 PM" src="https://github.com/harshboghara2004/Art-Gallery/assets/104019887/04148249-8845-4d3b-99e2-5f20f41636c8">
+
+<img width="1440" alt="Screenshot 2024-06-04 at 7 53 57 PM" src="https://github.com/harshboghara2004/Art-Gallery/assets/104019887/af99fb9c-0cac-45c1-85aa-54ab66590e84">
+
+<img width="1440" alt="Screenshot 2024-06-04 at 7 54 29 PM" src="https://github.com/harshboghara2004/Art-Gallery/assets/104019887/40005486-bfcc-4a10-b933-e3121d3a6304">
+
+<img width="1440" alt="Screenshot 2024-06-04 at 7 55 20 PM" src="https://github.com/harshboghara2004/Art-Gallery/assets/104019887/53d48a82-ccb5-420f-8c18-78a6bfa2997d">
+
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
