@@ -1,0 +1,36 @@
+import { convertedUrl } from "@/lib/database";
+import Image from "next/image";
+import Link from "next/link";
+import React from "react";
+
+const ArtistCard = ({ artist }) => {
+  // console.log(artist);
+  return (
+    <div className="p-10 flex border-2 rounded-3xl border-gray">
+      {/* <p>Hello</p> */}
+      <Link href={convertedUrl(`/profile/${artist.name}`)}>
+        <Image
+          src={artist.profilePhoto}
+          alt={`${artist.name}-profile-photo`}
+          width={400}
+          height={200}
+          className="rounded-2xl"
+        />
+      </Link>
+      <div className="ml-4">
+        <Link href={convertedUrl(`/profile/${artist.name}`)}>
+          <p className="text-2xl my-auto font-serif">{artist.name}</p>
+        </Link>
+        <p className="mt-5 text-md my-auto font-saas">{artist.bio}</p>
+        <div className="mt-10">
+          <Link href={`mailto:${artist.email}`}>
+            <span className="text-md font-semibold">Contact: </span>
+            {artist.email}
+          </Link>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default ArtistCard;
