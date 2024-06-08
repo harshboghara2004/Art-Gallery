@@ -1,5 +1,5 @@
 "use client";
-import { addTagAction } from "@/actions/tags-action";
+import { addTagAction, deleteTagAction } from "@/actions/tags-action";
 import React, { useRef, useState } from "react";
 
 const AddNewTag = ({ title }) => {
@@ -49,18 +49,28 @@ const AddNewTag = ({ title }) => {
   );
 };
 
-const TagsGrid = ({ tags, title, isInArtPiecePage }) => {
+const TagsGrid = ({ access, tags, title, isInArtPiecePage }) => {
+  const handleDeleteTag = async (tag) => {
+    await deleteTagAction(tag, title);
+  };
+
   return (
     <>
       <div className="flex flex-wrap">
         {tags && (
-          <div>
+          <div className="flex flex-wrap">
             {tags.map((tag) => (
               <div
                 key={tag}
-                className="inline-block px-3 py-1 m-2 bg-gray-200 rounded-lg shadow-sm text-sm"
+                className="flex px-3 py-1 m-2 gap-x-2 bg-gray-200 rounded-lg shadow-sm text-sm"
               >
-                {tag}
+                <p>{tag}</p>
+                {access && (
+                  <button onClick={() => handleDeleteTag(tag)}>
+                    {" "}
+                    &#10005;
+                  </button>
+                )}
               </div>
             ))}
           </div>

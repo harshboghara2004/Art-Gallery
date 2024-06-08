@@ -164,7 +164,12 @@ const ArtPiecePage = async ({ params }) => {
             {/* Tags */}
             <div className="mt-10">
               <h2 className="text-lg font-bold text-gray-900">Tags</h2>
-              <TagsGrid tags={artPieceData.tags} title={artPieceData.title} isInArtPiecePage={true}/>
+              <TagsGrid
+                access={currentUser.id == artPieceData.artistId}
+                tags={artPieceData.tags}
+                title={artPieceData.title}
+                isInArtPiecePage={true}
+              />
             </div>
           </div>
         </div>

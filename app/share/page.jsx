@@ -5,9 +5,9 @@ import { redirect } from "next/navigation";
 import React from "react";
 
 export default async function SharePage() {
-  const result = await verifyAuth();
+  const checkAccess = await verifyAuth();
 
-  if (!result.user) {
+  if (!checkAccess.user) {
     return redirect("/");
   }
 

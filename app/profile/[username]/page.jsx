@@ -76,7 +76,12 @@ const ProfilePageOfUser = async ({ params }) => {
             <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-2 ">
               {artPieces.length > 0 &&
                 artPieces.map((art) => (
-                  <ArtPiece key={art.title} art={art} isInArtsPage={false} />
+                  <ArtPiece
+                    access={false}
+                    key={art.title}
+                    art={art}
+                    isInArtsPage={false}
+                  />
                 ))}
             </div>
           </Suspense>

@@ -5,7 +5,7 @@ import TimeAndPlace from "./TimeAndPlace";
 import Link from "next/link";
 import { convertedUrl } from "@/lib/database";
 
-const ArtPiece = ({ art, isInArtsPage }) => {
+const ArtPiece = ({ access, art, isInArtsPage }) => {
   // console.log(art);
   return (
     <article
@@ -60,7 +60,7 @@ const ArtPiece = ({ art, isInArtsPage }) => {
       )}
 
       <hr className="w-full h-4 mx-auto" />
-      <TagsGrid tags={art.tags} title={art.title} isInArtPiecePage={false} />
+      <TagsGrid access={access} tags={art.tags} title={art.title} isInArtPiecePage={false} />
       <Link
         href={convertedUrl(`/arts/${art.title}`)}
         className="font-serif font-medium text-blue-700 place-self-center"

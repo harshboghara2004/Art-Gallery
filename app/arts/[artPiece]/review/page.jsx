@@ -32,9 +32,9 @@ const ReviewPage = ({ params }) => {
 
       <div className="flex gap-x-10 flex-col lg:flex-row lg:justify-evenly">
         <div className="m-4">
-          <ArtPiece art={artPieceData} isInArtsPage={false} />
+          <ArtPiece access={false} art={artPieceData} isInArtsPage={false} />
         </div>
-        <ReviewForm artTitle={artPieceData.title}/>
+        <ReviewForm artTitle={artPieceData.title} />
       </div>
     </>
   );

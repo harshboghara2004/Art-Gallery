@@ -7,7 +7,7 @@ import { revalidatePath, revalidateTag } from "next/cache";
 import { redirect } from "next/navigation";
 
 export async function shareArt(prevState, formData) {
-  console.log("here");
+  // console.log("here");
   const image = formData.get("image");
   const title = formData.get("title");
   const gallery = formData.get("gallery");
