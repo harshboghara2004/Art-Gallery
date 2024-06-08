@@ -107,9 +107,9 @@ const ArtPiecePage = async ({ params }) => {
               </div>
             </div>
 
-            {/* Edit Button */}
             {currentUser && artPieceData.artist.id === currentUser.id && (
               <div className="flex justify-center gap-x-4">
+                {/* Edit Button */}
                 <Link
                   href={`/arts/${artPiece}/edit`}
                   className="inline-flex items-center rounded-md bg-blue-50 px-4 py-1 text-xs font-semibold text-blue-700 ring-1 ring-inset ring-blue-700/10"
@@ -164,7 +164,7 @@ const ArtPiecePage = async ({ params }) => {
             {/* Tags */}
             <div className="mt-10">
               <h2 className="text-lg font-bold text-gray-900">Tags</h2>
-              <TagsGrid tags={artPieceData.tags} />
+              <TagsGrid tags={artPieceData.tags} title={artPieceData.title} isInArtPiecePage={true}/>
             </div>
           </div>
         </div>
