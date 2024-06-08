@@ -87,7 +87,11 @@ const ArtPiecePage = async ({ params }) => {
           {/* Reviews */}
           <div className="mt-4 lg:row-span-3 lg:mt-0">
             {artPieceData.reviews && (
-              <ReviewsGrid reviews={artPieceData.reviews} />
+              <ReviewsGrid
+                reviews={artPieceData.reviews}
+                title={artPieceData.title}
+                currentUserId={currentUser.id}
+              />
             )}
           </div>
 
