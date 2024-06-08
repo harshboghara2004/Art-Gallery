@@ -5,11 +5,14 @@ import React from "react";
 import logoImg from "@/public/assets/icon.png";
 import ImagePicker from "./image-picker";
 import { useFormState } from "react-dom";
-import { shareArt } from "@/actions/arts-actions";
+import { editArt } from "@/actions/arts-actions";
 
-const ShareForm = ({ user }) => {
-  const [formState, formAction] = useFormState(shareArt.bind(null), {});
-
+const EditArtForm = ({ artPiece }) => {
+  // console.log(artPiece);
+  const [formState, formAction] = useFormState(editArt, {
+    artPiece,
+  });
+  // console.log(formState);
   return (
     <>
       <div className="mt-10 flex flex-col">
@@ -23,7 +26,7 @@ const ShareForm = ({ user }) => {
             alt="Art Gallery Logo"
           />
           <h2 className="text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-            Share Your Art
+            Edit an Art - {artPiece.title}
           </h2>
         </div>
         <p className="mt-1 mx-auto text-sm leading-6 text-gray-600">
@@ -31,6 +34,7 @@ const ShareForm = ({ user }) => {
           share.
         </p>
       </div>
+
       <form className="space-y-6" action={formAction}>
         <div className="mt-10 flex px-20 flex-col justify-center lg:flex-row lg:justify-around">
           {/* Profile Photo */}
@@ -38,7 +42,7 @@ const ShareForm = ({ user }) => {
             <ImagePicker
               label="Your Art's Photo"
               name="image"
-              required={true}
+              required={false}
             />
           </div>
 
@@ -57,6 +61,7 @@ const ShareForm = ({ user }) => {
                   name="title"
                   id="title"
                   required
+                  defaultValue={artPiece.title}
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
@@ -75,6 +80,7 @@ const ShareForm = ({ user }) => {
                   <input
                     id="gallery"
                     name="gallery"
+                    defaultValue={artPiece.gallery}
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                   />
                 </div>
@@ -92,6 +98,7 @@ const ShareForm = ({ user }) => {
                   <input
                     id="city"
                     name="city"
+                    defaultValue={artPiece.city}
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                   />
                 </div>
@@ -113,6 +120,7 @@ const ShareForm = ({ user }) => {
                     name="price"
                     id="price"
                     required
+                    defaultValue={artPiece.price}
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
                 </div>
@@ -131,6 +139,7 @@ const ShareForm = ({ user }) => {
                     id="country"
                     name="country"
                     autoComplete="country-name"
+                    defaultValue={artPiece.country}
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                   >
                     <option>United States</option>
@@ -154,6 +163,16 @@ const ShareForm = ({ user }) => {
                   type="text"
                   name="medium"
                   id="medium"
+                  placeholder={
+                    artPiece.medium === "Not Specified By Artist."
+                      ? artPiece.medium
+                      : undefined
+                  }
+                  defaultValue={
+                    artPiece.medium !== "Not Specified By Artist."
+                      ? artPiece.medium
+                      : undefined
+                  }
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
@@ -172,6 +191,16 @@ const ShareForm = ({ user }) => {
                   id="description"
                   name="description"
                   rows={2}
+                  placeholder={
+                    artPiece.description === "Not Specified By Artist."
+                      ? artPiece.description
+                      : undefined
+                  }
+                  defaultValue={
+                    artPiece.description !== "Not Specified By Artist."
+                      ? artPiece.description
+                      : undefined
+                  }
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
@@ -186,7 +215,7 @@ const ShareForm = ({ user }) => {
                 type="submit"
                 className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
-                Share On Community
+                Update
               </button>
             </div>
           </div>
@@ -196,4 +225,4 @@ const ShareForm = ({ user }) => {
   );
 };
 
-export default ShareForm;
+export default EditArtForm;

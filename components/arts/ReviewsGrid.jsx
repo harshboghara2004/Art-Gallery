@@ -23,7 +23,7 @@ const StarsImage = ({ stars }) => {
 };
 
 function ReviewCard({ review }) {
-  console.log("time");
+  // console.log("time");
   return (
     <div key={review.user.id} className="mt-4 border-2 rounded-lg py-4 px-2">
       <div className="flex flex-row justify-between">

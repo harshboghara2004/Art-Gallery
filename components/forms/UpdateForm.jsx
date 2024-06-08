@@ -104,7 +104,7 @@ const UpdateForm = ({ user }) => {
 
           {/* Profile Photo */}
           <div className="mt-4">
-            <ImagePicker label="Your Profile Photo" name="image" />
+            <ImagePicker label="Your Profile Photo" name="image" required={false}/>
           </div>
 
           {/* Bio */}

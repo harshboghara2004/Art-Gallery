@@ -13,5 +13,5 @@ export default async function SharePage() {
 
   const currentUser = getCurrentUser();
 
-  return <ShareForm user={currentUser}/>;
+  return <ShareForm user={currentUser} />;
 }

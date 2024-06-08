@@ -3,7 +3,7 @@
 import { useRef, useState } from "react";
 import Image from "next/image";
 
-export default function ImagePicker({ label, name }) {
+export default function ImagePicker({ label, name , required }) {
   const [pickedImage, setPickedImage] = useState();
 
   const imageInput = useRef();
@@ -47,7 +47,7 @@ export default function ImagePicker({ label, name }) {
             accept="image/png, image/jpeg"
             name={name}
             onChange={handleImageChange}
-            required
+            required={required}
           />
           <button
             className="m-auto border-0 py-2 px-6 bg-indigo-600 text-white font-medium rounded cursor-pointer font-inherit"

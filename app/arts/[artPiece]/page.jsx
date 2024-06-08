@@ -6,11 +6,13 @@ import TagsGrid from "@/components/arts/TagsGrid";
 import ReviewsGrid from "@/components/arts/ReviewsGrid";
 import LoadingData from "@/components/LoadingData";
 import Link from "next/link";
-import { getArtPiece } from "@/lib/artPieces";
+import { getArtPieceByTitle } from "@/lib/artPieces";
+import { getCurrentUser } from "@/lib/sessions";
 
 const ArtPiecePage = async ({ params }) => {
   const { artPiece } = params;
-  const artPieceData = getArtPiece({ title: artPiece });
+  const artPieceData = getArtPieceByTitle({ title: artPiece });
+  const currentUser = getCurrentUser();
   // console.log(artPieceData);
 
   return (
@@ -75,7 +77,8 @@ const ArtPiecePage = async ({ params }) => {
 
         {/* Product info */}
         <div className="mx-auto max-w-2xl px-4 pb-16 pt-10 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8 lg:px-8 lg:pb-24 lg:pt-16">
-          <div className="lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
+          {/* Title */}
+          <div className="lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8 lg:flex justify-start">
             <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
               {artPieceData.title}
             </h1>
@@ -99,6 +102,34 @@ const ArtPiecePage = async ({ params }) => {
                 </p>
               </div>
             </div>
+
+            {/* Edit Button */}
+            {currentUser && artPieceData.artist.id === currentUser.id && (
+              <div className="flex justify-center gap-x-4">
+                <Link
+                  href={`/arts/${artPiece}/edit`}
+                  className="inline-flex items-center rounded-md bg-blue-50 px-4 py-1 text-xs font-semibold text-blue-700 ring-1 ring-inset ring-blue-700/10"
+                >
+                  <svg
+                    className="-ml-0.5 mr-1.5 h-5 w-5 text-blue-700"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path d="M2.695 14.763l-1.262 3.154a.5.5 0 00.65.65l3.155-1.262a4 4 0 001.343-.885L17.5 5.5a2.121 2.121 0 00-3-3L3.58 13.42a4 4 0 00-.885 1.343z" />
+                  </svg>
+                  Edit
+                </Link>
+
+                {/* Delete Button */}
+                <Link
+                  href={`/arts/${artPiece}/delete`}
+                  className="rounded-md bg-pink-50 px-4 py-2 text-xs font-medium text-pink-700 ring-1 ring-inset ring-pink-700/10"
+                >
+                  Delete
+                </Link>
+              </div>
+            )}
 
             {/* Details */}
             <div className="mt-10">
