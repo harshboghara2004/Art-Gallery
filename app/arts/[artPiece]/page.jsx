@@ -8,13 +8,13 @@ import LoadingData from "@/components/LoadingData";
 import Link from "next/link";
 import { getArtPieceByTitle } from "@/lib/artPieces";
 import { getCurrentUser } from "@/lib/sessions";
+import PaymentButton from "@/components/arts/PaymentButton";
 
 const ArtPiecePage = async ({ params }) => {
   const { artPiece } = params;
   const artPieceData = getArtPieceByTitle({ title: artPiece });
   const currentUser = getCurrentUser();
   // console.log(artPieceData);
-
   return (
     <Suspense fallback={<LoadingData data="Art Piece" />}>
       <div className="pt-6">
@@ -57,20 +57,12 @@ const ArtPiecePage = async ({ params }) => {
               Price: $ {artPieceData.price}
             </p>
             {/* Buy */}
-            {artPieceData.availability === "For Sale" ? (
-              <button
-                type="submit"
-                className="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-              >
-                Available for Sale
-              </button>
+            {artPieceData.buyerId === null ? (
+              <PaymentButton artPiece={artPieceData} />
             ) : (
-              <button
-                type="submit"
-                className="flex w-full items-center justify-center rounded-md border border-transparent bg-red-600 px-8 py-3 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
-              >
+              <div className="flex w-full items-center justify-center rounded-md border border-transparent bg-red-600 px-8 py-3 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2">
                 Sold Out
-              </button>
+              </div>
             )}
           </div>
         </div>
@@ -90,7 +82,7 @@ const ArtPiecePage = async ({ params }) => {
               <ReviewsGrid
                 reviews={artPieceData.reviews}
                 title={artPieceData.title}
-                currentUserId={currentUser.id}
+                currentUserId={currentUser && currentUser.id}
               />
             )}
           </div>

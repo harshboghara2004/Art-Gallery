@@ -3,18 +3,17 @@ const Database = require("better-sqlite3");
 const db = new Database("arts.db");
 
 // Users
-
 db.exec(
   `CREATE TABLE IF NOT EXISTS Users (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name TEXT NOT NULL,
-    gender TEXT,
-    email TEXT UNIQUE,
-    country TEXT,
-    password TEXT,
-    bio TEXT,
-    profilePhoto TEXT
-  );
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  name TEXT NOT NULL,
+  gender TEXT,
+  email TEXT UNIQUE,
+  country TEXT,
+  password TEXT,
+  bio TEXT,
+  profilePhoto TEXT
+);
 `
 );
 
@@ -112,13 +111,12 @@ const users = [
 ];
 
 const insertUsers = db.prepare(`
-  INSERT INTO Users (name, gender, email, country, password , bio, profilePhoto) VALUES
-  (?, ?, ?, ?, ?, ?, ?)
+INSERT INTO Users (name, gender, email, country, password , bio, profilePhoto) VALUES
+(?, ?, ?, ?, ?, ?, ?)
 `);
 users.forEach((user) => insertUsers.run(user));
 
 // Sessions
-
 db.exec(`
   CREATE TABLE IF NOT EXISTS sessions (
     id TEXT NOT NULL PRIMARY KEY,
@@ -129,7 +127,6 @@ db.exec(`
 `);
 
 // ArtPieces
-
 db.exec(`
     CREATE TABLE IF NOT EXISTS ArtPieces (
       title TEXT PRIMARY KEY,
@@ -142,7 +139,8 @@ db.exec(`
       city TEXT,
       country TEXT,
       price REAL,
-      availability TEXT,
+      buyerId TEXT,
+      paymentStatus INTEGER,
       FOREIGN KEY (artistId) REFERENCES Users(id)
     );
   `);
@@ -159,7 +157,8 @@ const artPieces = [
     "New York",
     "USA",
     5000,
-    "For Sale",
+    null,
+    0,
   ],
   [
     "Morning Bliss",
@@ -172,7 +171,8 @@ const artPieces = [
     "Los Angeles",
     "USA",
     3000,
-    "Sold",
+    null,
+    0,
   ],
   [
     "City Lights",
@@ -185,7 +185,8 @@ const artPieces = [
     "Chicago",
     "USA",
     4500,
-    "For Sale",
+    null,
+    0,
   ],
   [
     "Autumn Leaves",
@@ -198,7 +199,8 @@ const artPieces = [
     "Seattle",
     "USA",
     3500,
-    "For Sale",
+    null,
+    0,
   ],
   [
     "Ocean Waves",
@@ -211,13 +213,14 @@ const artPieces = [
     "San Francisco",
     "USA",
     4000,
-    "For Sale",
+    null,
+    0,
   ],
 ];
 
 const insertArtPieces = db.prepare(`
-  INSERT INTO ArtPieces (title, artistId, yearCreated, medium, description, image, gallery, city, country, price, availability) VALUES
-  (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+  INSERT INTO ArtPieces (title, artistId, yearCreated, medium, description, image, gallery, city, country, price, buyerId, paymentStatus) VALUES
+  (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
 `);
 
 artPieces.forEach((artPiece) => insertArtPieces.run(artPiece));
@@ -225,14 +228,14 @@ artPieces.forEach((artPiece) => insertArtPieces.run(artPiece));
 // Reviews
 
 db.exec(`
-  CREATE TABLE IF NOT EXISTS Reviews (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    artTitle TEXT,
-    userId INTEGER,
-    rating REAL,
-    comment TEXT,
-    FOREIGN KEY (artTitle) REFERENCES ArtPieces(title)
-  );
+CREATE TABLE IF NOT EXISTS Reviews (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  artTitle TEXT,
+  userId INTEGER,
+  rating REAL,
+  comment TEXT,
+  FOREIGN KEY (artTitle) REFERENCES ArtPieces(title)
+);
 `);
 
 const reviews = [
@@ -254,8 +257,8 @@ const reviews = [
 ];
 
 const insertReviews = db.prepare(`
-  INSERT INTO Reviews (artTitle, userId, rating, comment) VALUES
-  (?, ?, ?, ?)
+INSERT INTO Reviews (artTitle, userId, rating, comment) VALUES
+(?, ?, ?, ?)
 `);
 
 reviews.forEach((review) => insertReviews.run(review));
@@ -263,12 +266,12 @@ reviews.forEach((review) => insertReviews.run(review));
 // Tags
 
 db.exec(`
-  CREATE TABLE IF NOT EXISTS Tags (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    artTitle TEXT,
-    tag TEXT,
-    FOREIGN KEY (artTitle) REFERENCES ArtPieces(title)
-  );
+CREATE TABLE IF NOT EXISTS Tags (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  artTitle TEXT,
+  tag TEXT,
+  FOREIGN KEY (artTitle) REFERENCES ArtPieces(title)
+);
 `);
 
 const tags = [
@@ -295,8 +298,8 @@ const tags = [
 ];
 
 const insertTags = db.prepare(`
-  INSERT INTO Tags (artTitle, tag) VALUES
-  (?, ?)
+INSERT INTO Tags (artTitle, tag) VALUES
+(?, ?)
 `);
 
 tags.forEach((tag) => insertTags.run(tag));
