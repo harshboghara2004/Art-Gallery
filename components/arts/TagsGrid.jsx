@@ -76,9 +76,11 @@ const TagsGrid = ({ access, tags, title, isInArtPiecePage }) => {
           </div>
         )}
       </div>
-      <div className="w-1/2">
-        {isInArtPiecePage && <AddNewTag title={title} />}
-      </div>
+      {access && (
+        <div className="w-1/2">
+          {isInArtPiecePage && <AddNewTag title={title} />}
+        </div>
+      )}
     </>
   );
 };

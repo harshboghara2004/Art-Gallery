@@ -9,12 +9,19 @@ import Link from "next/link";
 import { getArtPieceByTitle } from "@/lib/artPieces";
 import { getCurrentUser } from "@/lib/sessions";
 import PaymentButton from "@/components/arts/PaymentButton";
+import { getUserById } from "@/lib/users";
 
 const ArtPiecePage = async ({ params }) => {
   const { artPiece } = params;
   const artPieceData = getArtPieceByTitle({ title: artPiece });
   const currentUser = getCurrentUser();
+  let buyer;
+
+  if (artPieceData.buyerId !== null) {
+    buyer = getUserById(artPieceData.buyerId);
+  }
   // console.log(artPieceData);
+  // console.log(currentUser);
   return (
     <Suspense fallback={<LoadingData data="Art Piece" />}>
       <div className="pt-6">
@@ -58,10 +65,30 @@ const ArtPiecePage = async ({ params }) => {
             </p>
             {/* Buy */}
             {artPieceData.buyerId === null ? (
-              <PaymentButton artPiece={artPieceData} />
+              currentUser && artPieceData.artistId !== currentUser.id ? (
+                <PaymentButton artPiece={artPieceData} />
+              ) : (
+                <div className="flex w-full items-center justify-center rounded-md border border-transparent bg-gray-600 px-8 py-3 text-base font-medium text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2">
+                  {currentUser ? "You are Owner" : "Not Available"}
+                </div>
+              )
+            ) : artPieceData.paymentStatus < 4 ? (
+              (currentUser && artPieceData.buyerId === currentUser.id) ||
+              (currentUser && artPieceData.artistId === currentUser.id) ? (
+                <Link
+                  href={`/arts/${artPiece}/payment`}
+                  className="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                >
+                  Check Status
+                </Link>
+              ) : (
+                <div className="flex w-full items-center justify-center rounded-md border border-transparent bg-gray-600 px-8 py-3 text-base font-medium text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2">
+                  Not Available.
+                </div>
+              )
             ) : (
-              <div className="flex w-full items-center justify-center rounded-md border border-transparent bg-red-600 px-8 py-3 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2">
-                Sold Out
+              <div className="flex text-wrap w-full items-center justify-center rounded-md border border-transparent bg-red-600 px-8 py-3 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2">
+                Sold Out to {buyer.name}
               </div>
             )}
           </div>
@@ -157,7 +184,7 @@ const ArtPiecePage = async ({ params }) => {
             <div className="mt-10">
               <h2 className="text-lg font-bold text-gray-900">Tags</h2>
               <TagsGrid
-                access={currentUser.id == artPieceData.artistId}
+                access={currentUser && currentUser.id == artPieceData.artistId}
                 tags={artPieceData.tags}
                 title={artPieceData.title}
                 isInArtPiecePage={true}

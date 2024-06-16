@@ -2,13 +2,23 @@ import Stepper from "@/components/payment/Stepper";
 import { getArtPieceByTitle } from "@/lib/artPieces";
 import { getCurrentUser } from "@/lib/sessions";
 import { getUserById } from "@/lib/users";
+import { redirect } from "next/navigation";
 import React from "react";
 
 const ArtPiecePage = ({ params }) => {
   const { artPiece } = params;
-  const artPieceData = getArtPieceByTitle({ title: artPiece });
-  const buyer = getUserById(artPieceData.buyerId);
   const currentUser = getCurrentUser();
+  if (currentUser === undefined) {
+    redirect("/login");
+  }
+  const artPieceData = getArtPieceByTitle({ title: artPiece });
+  if (artPieceData.paymentStatus === 0) {
+    redirect(`/arts/${artPiece}`);
+  }
+  const buyer = getUserById(artPieceData.buyerId);
+  if (buyer.id !== currentUser.id && artPieceData.artistId !== currentUser.id) {
+    redirect(`/arts/${artPiece}`);
+  }
 
   return (
     <div className="p-4">

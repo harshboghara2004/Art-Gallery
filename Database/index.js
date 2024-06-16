@@ -139,7 +139,7 @@ db.exec(`
       city TEXT,
       country TEXT,
       price REAL,
-      buyerId TEXT,
+      buyerId INTEGER,
       paymentStatus INTEGER,
       FOREIGN KEY (artistId) REFERENCES Users(id)
     );
