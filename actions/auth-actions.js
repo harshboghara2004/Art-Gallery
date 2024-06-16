@@ -3,7 +3,13 @@
 import { createAuthSession, destroySession } from "@/lib/auth";
 import { convertedUrl } from "@/lib/database";
 import { hashUserPassword, verifyPassword } from "@/lib/hash";
-import { createUser, getUserByEmail, updateUser } from "@/lib/users";
+import { getCurrentUser } from "@/lib/sessions";
+import {
+  createUser,
+  getUserByEmail,
+  updateUser,
+  updateUserPhoto,
+} from "@/lib/users";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
@@ -95,28 +101,27 @@ export async function login(prevState, formData) {
   redirect("/arts");
 }
 
-export async function update(prevState, formData) {
-  const oldData = prevState;
-  const firstName = formData.get("first-name");
-  const lastName = formData.get("last-name");
-  const country = formData.get("country");
-  const bio = formData.get("bio");
-  const image = formData.get("image");
-  const { oldName, oldBio, oldProfilePhoto } = oldData;
-
+export async function updateProfileDetails({ data }) {
+  const curruntUser = getCurrentUser();
   const user = {
-    oldName,
-    name: `${firstName} ${lastName}`,
-    country,
-    bio: bio || oldBio,
-    image,
-    oldProfilePhoto,
+    name: `${data["first-name"]} ${data["last-name"]}`,
+    country: data.country,
+    bio: data.about,
+    oldName: curruntUser.name,
   };
-
+  // console.log(user);
   const newUser = await updateUser(user);
   console.log("update-successfully");
-  revalidatePath("/profile/[username]");
+  revalidatePath("/profile");
   redirect(convertedUrl(`/profile/${newUser}`));
+}
+
+export async function updateProfilePhoto(newUrl) {
+  const curruntUser = getCurrentUser();
+  await updateUserPhoto(newUrl, curruntUser.id);
+  console.log("update-successfully");
+  revalidatePath("/profile");
+  redirect(convertedUrl(`/profile/${curruntUser.name}`));
 }
 
 export async function logout() {

@@ -1,9 +1,6 @@
 "use client";
 
-import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
 import React from "react";
-import { convertedUrl } from "../headers/MainHeaderClient";
 import { deleteReviewAction } from "@/actions/reviews-actions";
 
 const DeleteReviewForm = ({ reviewId, title }) => {

@@ -1,4 +1,4 @@
-import { deleteArt } from "@/lib/artPieces";
+import { deleteArt } from "@//lib/artPieces";
 import { revalidateTag } from "next/cache";
 import { NextResponse } from "next/server";
 

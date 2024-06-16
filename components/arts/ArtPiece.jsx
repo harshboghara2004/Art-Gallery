@@ -6,7 +6,6 @@ import Link from "next/link";
 import { convertedUrl } from "@/lib/database";
 
 const ArtPiece = ({ access, art, isInArtsPage }) => {
-  // console.log(art);
   return (
     <article
       key={art.title}
@@ -20,7 +19,7 @@ const ArtPiece = ({ access, art, isInArtsPage }) => {
       />
       <div className="pt-4 ">
         <Image
-          src={art.image}
+          src={art.imageUrl}
           width={500}
           height={200}
           alt={`${art.title}`}
@@ -45,7 +44,7 @@ const ArtPiece = ({ access, art, isInArtsPage }) => {
               className="flex gap-x-2"
             >
               <Image
-                src={art.artist.profilePhoto}
+                src={art.artist.photoUrl}
                 alt="artist-profile-photo"
                 width={25}
                 height={55}
@@ -60,7 +59,12 @@ const ArtPiece = ({ access, art, isInArtsPage }) => {
       )}
 
       <hr className="w-full h-4 mx-auto" />
-      <TagsGrid access={access} tags={art.tags} title={art.title} isInArtPiecePage={false} />
+      <TagsGrid
+        access={access}
+        tags={art.tags}
+        title={art.title}
+        isInArtPiecePage={false}
+      />
       <Link
         href={convertedUrl(`/arts/${art.title}`)}
         className="font-serif font-medium text-blue-700 place-self-center"

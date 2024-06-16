@@ -11,7 +11,7 @@ const EditArtPage = async ({ params }) => {
     redirect(`/arts/${artPiece}`);
   }
   const artPieceData = getArtPieceByTitle({ title: artPiece });
-  return <EditArtForm artPiece={artPieceData}/>
+  return <EditArtForm artPiece={artPieceData} />;
 };
 
 export default EditArtPage;

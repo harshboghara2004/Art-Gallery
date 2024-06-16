@@ -49,7 +49,7 @@ const MainHeaderClient = ({ user }) => {
                 className="flex gap-x-2"
               >
                 <Image
-                  src={user.profilePhoto}
+                  src={user.photoUrl}
                   width={40}
                   height={10}
                   alt="profile-photo"
@@ -115,7 +115,7 @@ const MainHeaderClient = ({ user }) => {
                       className="flex gap-x-2"
                     >
                       <Image
-                        src={user.profilePhoto}
+                        src={user.photoUrl}
                         width={40}
                         height={10}
                         alt="profile-photo"

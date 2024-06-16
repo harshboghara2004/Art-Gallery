@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { convertedUrl } from "../headers/MainHeaderClient";
+import { convertedUrl } from "@/headers/MainHeaderClient";
 import Image from "next/image";
 import Link from "next/link";
 

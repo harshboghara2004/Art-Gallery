@@ -2,7 +2,6 @@ import ArtPiece from "@/components/arts/ArtPiece";
 import DeleteArtForm from "@/components/forms/DeleteArtForm";
 import { getArtPieceByTitle } from "@/lib/artPieces";
 import { verifyAccessOfArtPiece } from "@/lib/auth";
-import { convertedUrl } from "@/lib/database";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import React from "react";

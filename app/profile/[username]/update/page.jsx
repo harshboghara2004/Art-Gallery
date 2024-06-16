@@ -1,8 +1,8 @@
 import React from "react";
 import { getFirstAndLastName, getUserByName } from "@/lib/users";
-import UpdateForm from "@/components/forms/UpdateForm";
 import { verifyAccessOfUpdateUser } from "@/lib/auth";
 import { redirect } from "next/navigation";
+import UpdateForm from "@/components/forms/UpdateForm";
 
 const UpdateProfilePage = async ({ params }) => {
   const { username } = params;

@@ -2,6 +2,8 @@ import ArtsGrid from "@/components/arts/ArtsGrid";
 import LoadingData from "@/components/LoadingData";
 import React, { Suspense } from "react";
 
+const dynamic = "force-dynamic";
+
 async function Arts() {
   const response = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/arts`, {
     method: "GET",

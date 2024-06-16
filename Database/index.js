@@ -12,10 +12,13 @@ db.exec(
   country TEXT,
   password TEXT,
   bio TEXT,
-  profilePhoto TEXT
+  photoUrl TEXT
 );
 `
 );
+
+// https://files.edgestore.dev/aerf8ik4hbz52apm/myPublicImages/_public/artist/b03bd57f-f634-4eef-987e-405e8c8de596.jpg
+// https://files.edgestore.dev/aerf8ik4hbz52apm/myPublicImages/_public/artist/b03bd57f-f634-4eef-987e-405e8c8de596-thumb.jpg
 
 const users = [
   [
@@ -25,7 +28,7 @@ const users = [
     "United States",
     "d584aafa51e5651777bf180c3ace41b76af42bdbea416a6b53fa28893d7cbaed25c186a7ee1ca37f7730b59047447179577289218ae5800621322330716bd0aa:db91b86d35c14147f68b7bac9f01646c",
     "A contemporary artist known for vibrant landscapes.",
-    "/assets/artists/Jane_Doe.jpg",
+    "https://files.edgestore.dev/aerf8ik4hbz52apm/myPublicImages/_public/artist/743e25fd-1de6-42aa-bf12-82a5ba5d0634.jpg",
   ],
   [
     "John Doe",
@@ -34,7 +37,7 @@ const users = [
     "Canada",
     "06337ccb8cbd2bb4c142a40e35cc2032589d710e176a8af12da485980f8ab1974109544bdddbb75d273f5ff306ea83c4bf7102ea332f49c3e7198f2fc0d8fd99:7d7a601661a481e1315403f711372fb7",
     "An abstract artist with a unique perspective on modern art.",
-    "/assets/artists/John_Doe.jpg",
+    "https://files.edgestore.dev/aerf8ik4hbz52apm/myPublicImages/_public/artist/b03bd57f-f634-4eef-987e-405e8c8de596.jpg",
   ],
   [
     "Alice Green",
@@ -43,7 +46,7 @@ const users = [
     "United States",
     "1bca942bddf1be0dbc075380be1b4e51dbdf1ede8c85085ad4a47ee239a891598f8736f81a6dc36dab2dddd99268dbac48a770490fb51018671d89a50aa46f8a:cd86d03f816efe59952af1fd0dc7077f",
     "A digital artist exploring the boundaries of virtual reality.",
-    "/assets/artists/Alice_Green.jpg",
+    "https://files.edgestore.dev/aerf8ik4hbz52apm/myPublicImages/_public/artist/ae050c3c-176c-48cd-a0bc-cdc8ba9edd93.jpg",
   ],
   [
     "Michael Brown",
@@ -52,7 +55,7 @@ const users = [
     "United States",
     "a90fdb7a4aba1e2bbe8b6f55f9ce06fb7018b27db4533678bfb9a19a16a108c91513137d9ce4d5c8e3460f7a49812567da92b18ef5043523f66fe8b47ab1065c:1579c3c0f39c55b83b0e59ac2501ee4c",
     "A sculptor whose works are featured in many public spaces.",
-    "/assets/artists/Michael_Brown.jpg",
+    "https://files.edgestore.dev/aerf8ik4hbz52apm/myPublicImages/_public/artist/25a02440-730f-4011-b192-aaeb40f89f89.jpg",
   ],
   [
     "Emma Wilson",
@@ -61,7 +64,7 @@ const users = [
     "Mexico",
     "14160e5db81787d20db5ce34c93cb1d2f5e23e4917d3b6333b0e51bf8c743925691c398e1d64638e7f05049a9ac06a4ea5db91114879b0e10f43d0bf54b4d656:14fe40623689d13a6addd0e06513ed2f",
     "A watercolor artist known for her serene and calming pieces.",
-    "/assets/artists/Emma_Wilson.jpeg",
+    "https://files.edgestore.dev/aerf8ik4hbz52apm/myPublicImages/_public/artist/78565cbe-187f-4eaa-a120-2bb8a61cf1e2.jpeg",
   ],
   [
     "John Smith",
@@ -70,7 +73,7 @@ const users = [
     "United States",
     "45f21a25935c782a6fd4f5c07c11c3cefdebfaa91506ffd8dddeb9b997b897fb2b904b8423a402aae62b9cfc0f079985abc7b6218c690ab379993db0db6cd3af:f5158ae7629a12855e3f08f3b005cc50",
     "A mixed media artist with a focus on urban landscapes.",
-    "/assets/artists/John_Smith.jpg",
+    "https://files.edgestore.dev/aerf8ik4hbz52apm/myPublicImages/_public/artist/d1043505-15d5-411c-aad6-32606e760b75.jpg",
   ],
   [
     "Emily Johnson",
@@ -79,7 +82,7 @@ const users = [
     "Canada",
     "93b0ec6262afb01c1417036f8318f95fcddea4bccf931714e3de7df0b643f96425116e520d653fe137de9aac61be7ead0329bc7ee901a297996b070821f22360:f2113307d68c05059765ec8359ed542b",
     "An illustrator and graphic designer.",
-    "/assets/artists/Emily_Johnson.jpg",
+    "https://files.edgestore.dev/aerf8ik4hbz52apm/myPublicImages/_public/artist/9586bcb5-95a2-44c4-acaf-13034b237701.jpg",
   ],
   [
     "Anna White",
@@ -88,7 +91,7 @@ const users = [
     "Mexico",
     "2e9401986ab6a5f365273c35c7fc7acc5eb36525901f9e90062bba76f33c61b17ec6e4aadd8ac545c7257436ba46696233bf2b632149932ad04a93f6a358babc:8a2923b5fc47baa64d2557cfa368c19f",
     "A minimalist painter known for her geometric designs.",
-    "/assets/artists/Anna_White.jpg",
+    "https://files.edgestore.dev/aerf8ik4hbz52apm/myPublicImages/_public/artist/879a452a-2c1a-4611-845f-859341d5e6a2.jpg",
   ],
   [
     "Mark Brown",
@@ -97,7 +100,7 @@ const users = [
     "Canada",
     "3b9b17d0a8a1b644288d9725a80d5434ccc64833df64de6d45af901df6c71c4c996e75ef553f7498bf66514365e5108f52678f4de501e0652f315d9fa4e15ec2:e7746566164c58d26b66411f5e096136",
     "A photographer capturing the essence of city life.",
-    "/assets/artists/Mark_Brown.jpg",
+    "https://files.edgestore.dev/aerf8ik4hbz52apm/myPublicImages/_public/artist/7a2a7cdc-7961-4325-bbe5-3de422035a53.jpg",
   ],
   [
     "Rachel Moore",
@@ -106,12 +109,12 @@ const users = [
     "United States",
     "c7477c8c5a2773dbc8749e8e6a25653ff8f078669aa8f88d828ff97678a38786e66f3adf9b3812186105f8c57155b69bf359ca4f4328f9bea9439314be00e86c:2f3950fb948384b6e57ed92d77fdb4a0",
     "A printmaker with a passion for botanical subjects.",
-    "/assets/artists/Rachel_Moore.jpg",
+    "https://files.edgestore.dev/aerf8ik4hbz52apm/myPublicImages/_public/artist/bcc944b9-f32e-459d-b1b8-bfb1f05d3873.jpg",
   ],
 ];
 
 const insertUsers = db.prepare(`
-INSERT INTO Users (name, gender, email, country, password , bio, profilePhoto) VALUES
+INSERT INTO Users (name, gender, email, country, password , bio, photoUrl) VALUES
 (?, ?, ?, ?, ?, ?, ?)
 `);
 users.forEach((user) => insertUsers.run(user));
@@ -134,7 +137,7 @@ db.exec(`
       yearCreated INTEGER,
       medium TEXT,
       description TEXT,
-      image TEXT,
+      imageUrl TEXT,
       gallery TEXT,
       city TEXT,
       country TEXT,
@@ -145,6 +148,8 @@ db.exec(`
     );
   `);
 
+// https://files.edgestore.dev/aerf8ik4hbz52apm/myPublicImages/_public/artpiece/67479772-bc74-4a4c-a328-c7fdd7a9c66b.jpeg
+
 const artPieces = [
   [
     "Sunset Over the Mountains",
@@ -152,7 +157,7 @@ const artPieces = [
     2021,
     "Oil on Canvas",
     "A beautiful depiction of a sunset over the mountains, capturing the vibrant colors of the evening sky.",
-    "/assets/art_pieces/Sunset-Over-the-Mountains.jpeg",
+    "https://files.edgestore.dev/aerf8ik4hbz52apm/myPublicImages/_public/artpiece/1b13a729-df36-4757-a690-43a05012f072.jpeg",
     "Modern Art Gallery",
     "New York",
     "USA",
@@ -166,7 +171,7 @@ const artPieces = [
     2019,
     "Watercolor on Paper",
     "A serene morning scene with soft hues and delicate brushwork.",
-    "/assets/art_pieces/Morning-Bliss.jpeg",
+    "https://files.edgestore.dev/aerf8ik4hbz52apm/myPublicImages/_public/artpiece/d47ceefb-92b6-44e3-9d84-abc04cd4a219.jpeg",
     "Art Lovers Gallery",
     "Los Angeles",
     "USA",
@@ -180,7 +185,7 @@ const artPieces = [
     2020,
     "Acrylic on Canvas",
     "A dynamic representation of a bustling city at night, illuminated by vibrant lights.",
-    "/assets/art_pieces/City-Lights.jpeg",
+    "https://files.edgestore.dev/aerf8ik4hbz52apm/myPublicImages/_public/artpiece/d1782dea-71d1-4891-8aa4-82b736450172.jpeg",
     "Urban Art Space",
     "Chicago",
     "USA",
@@ -194,7 +199,7 @@ const artPieces = [
     2018,
     "Oil on Canvas",
     "A warm and vibrant depiction of autumn leaves in a forest setting.",
-    "/assets/art_pieces/Autumn-Leaves.jpeg",
+    "https://files.edgestore.dev/aerf8ik4hbz52apm/myPublicImages/_public/artpiece/67479772-bc74-4a4c-a328-c7fdd7a9c66b.jpeg",
     "Nature Art Gallery",
     "Seattle",
     "USA",
@@ -208,7 +213,7 @@ const artPieces = [
     2022,
     "Acrylic on Canvas",
     "A powerful and dramatic portrayal of ocean waves crashing against the shore.",
-    "/assets/art_pieces/Ocean-Waves.jpeg",
+    "https://files.edgestore.dev/aerf8ik4hbz52apm/myPublicImages/_public/artpiece/29d929c0-d61f-4861-9cd6-8119593a76ef.jpeg",
     "Coastal Art Gallery",
     "San Francisco",
     "USA",
@@ -219,7 +224,7 @@ const artPieces = [
 ];
 
 const insertArtPieces = db.prepare(`
-  INSERT INTO ArtPieces (title, artistId, yearCreated, medium, description, image, gallery, city, country, price, buyerId, paymentStatus) VALUES
+  INSERT INTO ArtPieces (title, artistId, yearCreated, medium, description, imageUrl, gallery, city, country, price, buyerId, paymentStatus) VALUES
   (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
 `);
 

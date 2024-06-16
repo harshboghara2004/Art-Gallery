@@ -1,8 +1,7 @@
-import MainHeader from "@/components/headers/MainHeader";
-import GradientBackground from "@/components/gradient-background/GradientBackground";
+import MainHeader from "@//components/headers/MainHeader";
+import GradientBackground from "@//components/gradient-background/GradientBackground";
+import { EdgeStoreProvider } from "@//lib/edgestore";
 import "./globals.css";
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
 
 export const metadata = {
   title: "Art Gallery",
@@ -29,7 +28,9 @@ export default function RootLayout({ children }) {
       <body className="bg-white">
         <MainHeader />
         <div className="relative isolate px-6 pt-14 lg:px-8">
-          <GradientBackground>{children}</GradientBackground>
+          <EdgeStoreProvider>
+            <GradientBackground>{children}</GradientBackground>
+          </EdgeStoreProvider>
         </div>
       </body>
     </html>

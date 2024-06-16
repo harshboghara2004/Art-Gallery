@@ -29,15 +29,23 @@ const ProfilePageOfUser = async ({ params }) => {
 
   return (
     <div className="lg:flex p-10">
-      <div className="lg:w-1/2">
+      <div className="mt-4 flex flex-col gap-y-4 items-center lg:w-1/2">
         <Image
-          src={user.profilePhoto}
+          src={user.photoUrl}
           alt={`${user.name}-profile-photo`}
           width={500}
           height={100}
           className="rounded-3xl"
           // fill
         />
+        {currentUser && (
+          <Link
+            href={`/profile/${username}/image`}
+            className="mx-auto w-24 inline-flex px-4 text-center items-center rounded-md bg-blue-50 py-1 text-xs font-semibold text-blue-700 ring-1 ring-inset ring-blue-700/10"
+          >
+            Edit Image
+          </Link>
+        )}
       </div>
       <div className="grid grid-col-2">
         <div className="p-10 mx-auto">

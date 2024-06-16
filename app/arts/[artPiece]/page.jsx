@@ -27,21 +27,29 @@ const ArtPiecePage = async ({ params }) => {
       <div className="pt-6">
         {/* Image gallery */}
         <div className="m-auto h-1/2 flex flex-col md:flex-row lg:border-gray-200">
-          <div className="m-auto">
+          <div className="m-auto flex flex-col gap-y-4">
             <Image
-              src={artPieceData.image}
+              src={artPieceData.imageUrl}
               alt={artPieceData.title}
               width={500}
               height={500}
               // fill
               className="rounded-lg w_full h-full object-cover object-center"
             />
+            {currentUser && artPieceData.artist.id === currentUser.id && (
+              <Link
+                href={`/arts/${artPiece}/image`}
+                className="mx-auto w-24 inline-flex px-4 text-center items-center rounded-md bg-blue-50 py-1 text-xs font-semibold text-blue-700 ring-1 ring-inset ring-blue-700/10"
+              >
+                Edit Image
+              </Link>
+            )}
           </div>
           <div className="m-auto p-10 border-2 rounded-2xl">
             {/* Artist */}
             <Link href={convertedUrl(`/profile/${artPieceData.artist.name}`)}>
               <Image
-                src={artPieceData.artist.profilePhoto}
+                src={artPieceData.artist.photoUrl}
                 width={150}
                 height={100}
                 alt="artist-profile-photo"
