@@ -1,5 +1,6 @@
+import NotFoundPage from "@/components/NotFoundPage";
 import Stepper from "@/components/payment/Stepper";
-import { getArtPieceByTitle } from "@/lib/artPieces";
+import { checkArtPieceExits, getArtPieceByTitle } from "@/lib/artPieces";
 import { getCurrentUser } from "@/lib/sessions";
 import { getUserById } from "@/lib/users";
 import { redirect } from "next/navigation";
@@ -10,6 +11,10 @@ const ArtPiecePage = ({ params }) => {
   const currentUser = getCurrentUser();
   if (currentUser === undefined) {
     redirect("/login");
+  }
+  const checkExists = checkArtPieceExits(artPiece);
+  if (!checkExists) {
+    return <NotFoundPage url={"/arts"}/>;
   }
   const artPieceData = getArtPieceByTitle({ title: artPiece });
   if (artPieceData.paymentStatus === 0) {

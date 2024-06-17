@@ -7,6 +7,10 @@ const es = initEdgeStore.create();
 const edgeStoreRouter = es.router({
   myPublicImages: es
     .imageBucket()
+    .beforeDelete(({ ctx, fileInfo }) => {
+      // console.log("beforeDelete", ctx, fileInfo);
+      return true; // allow delete
+    })
     .input(
       z.object({
         type: z.enum(["artpiece", "artist"]),

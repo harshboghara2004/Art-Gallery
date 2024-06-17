@@ -98,7 +98,7 @@ export async function login(prevState, formData) {
   } catch (e) {
     // console.log("error");
   }
-  redirect("/arts");
+  redirect("/");
 }
 
 export async function updateProfileDetails({ data }) {

@@ -18,7 +18,8 @@ const StripeCheckOut = ({ artPiece }) => {
     const response = await fetch("/api/create-checkout-session", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
+        // "Content-Type": "application/json",
+        Authorization: process.env.API_SECRET_KEY,
       },
       body: JSON.stringify({ artPiece }),
     });

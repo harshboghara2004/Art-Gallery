@@ -4,14 +4,25 @@ import { redirect } from "next/navigation";
 import UpdateImage from "@/components/forms/UpdateImage";
 import Image from "next/image";
 import logoImg from "@/public/assets/icon.png";
+import { getCurrentUser } from "@/lib/sessions";
+import { verifyAccessOfArtPiece } from "@/lib/auth";
+import NotFoundPage from "@/components/NotFoundPage";
 
-export default function Page({ params }) {
+export default async function Page({ params }) {
+  const currentUser = getCurrentUser();
+  if (currentUser === undefined) {
+    redirect("/login");
+  }
   const { artPiece } = params;
-  const artPieceData = getArtPieceByTitle({ title: artPiece });
   const checkExists = checkArtPieceExits(artPiece);
   if (!checkExists) {
-    redirect(`/arts`);
+    return <NotFoundPage url={"/arts"}/>;
   }
+  const checkAccess = await verifyAccessOfArtPiece(artPiece);
+  if (!checkAccess) {
+    redirect(`/arts/${artPiece}`);
+  }
+  const artPieceData = getArtPieceByTitle({ title: artPiece });
   return (
     <>
       <div className="mt-10 flex flex-col">

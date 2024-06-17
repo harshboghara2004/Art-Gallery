@@ -51,9 +51,9 @@ export async function editArtImage(newImageUrl, title) {
   redirect(`/arts`);
 }
 
-export async function deleteArt(prevState, formData) {
-  const oldData = prevState;
-  await deleteArtPiece(oldData.title);
+export async function deleteArt(title) {
+  // console.log(title);
+  await deleteArtPiece(title);
   revalidateTag("arts");
   redirect("/arts");
 }

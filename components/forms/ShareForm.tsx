@@ -60,59 +60,59 @@ const ShareForm = ({ user }) => {
           share.
         </p>
       </div>
-      <form className="space-y-6" onSubmit={handleSubmit}>
-        <div className="mt-10 flex px-20 flex-col justify-center lg:flex-row lg:justify-around">
-          {/* ArtPiece Photo */}
-          <div className="mt-4 w-full lg:w-2/5 h-1/2">
-            <div className="flex flex-col items-center m-6 gap-2">
-              <SingleImageDropzone
-                width={400}
-                height={400}
-                value={file}
-                onChange={(file) => {
-                  setFile(file);
+      <div className="mt-8 mx-4 items-center flex flex-col justify-evenly lg:flex-row">
+        {/* ArtPiece Photo */}
+        <div className="mt-2 w-full lg:w-2/5 flex flex-col items-center gap-y-4">
+          <SingleImageDropzone
+            width={400}
+            height={400}
+            value={file}
+            onChange={(file) => {
+              setFile(file);
+            }}
+          />
+          {file !== undefined && progress > 0 && progress < 100 && (
+            <div className="h-[6px] w-60 border-black border rounded overflow-hidden">
+              <div
+                className="h-full bg-black transition-all duration-150"
+                style={{
+                  width: `${progress}%`,
                 }}
-              />
-              {file !== undefined && progress > 0 && progress < 100 && (
-                <div className="h-[6px] w-60 border-black border rounded overflow-hidden">
-                  <div
-                    className="h-full bg-black transition-all duration-150"
-                    style={{
-                      width: `${progress}%`,
-                    }}
-                  ></div>
-                </div>
-              )}
-              {file !== undefined && progress === 100 && <p>Image Uploaded</p>}
-              {(progress === 0 || file === undefined) && (
-                <button
-                  className="flex w-1/2 justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                  onClick={async () => {
-                    if (file) {
-                      const res = await edgestore.myPublicImages.upload({
-                        file,
-                        options: {
-                          temporary: true,
-                        },
-                        onProgressChange: (progress) => {
-                          setProgress(progress);
-                        },
-                        input: { type: "artpiece" },
-                      });
-                      setUrls({
-                        url: res.url,
-                        thumbnailUrl: res.thumbnailUrl,
-                      });
-                    }
-                  }}
-                >
-                  Upload
-                </button>
-              )}
+              ></div>
             </div>
-          </div>
-
-          <div className="flex flex-col w-full lg:w-2/5">
+          )}
+          {file !== undefined && progress === 100 && <p>Image Uploaded</p>}
+          {(progress === 0 || file === undefined) && (
+            <button
+              className="flex w-1/2 justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              onClick={async () => {
+                if (file) {
+                  const res = await edgestore.myPublicImages.upload({
+                    file,
+                    options: {
+                      temporary: true,
+                    },
+                    onProgressChange: (progress) => {
+                      setProgress(progress);
+                    },
+                    input: { type: "artpiece" },
+                  });
+                  setUrls({
+                    url: res.url,
+                    thumbnailUrl: res.thumbnailUrl,
+                  });
+                }
+              }}
+            >
+              Upload
+            </button>
+          )}
+        </div>
+        <form
+          className="w-full lg:w-2/5 flex px-1 flex-col justify-center lg:flex-row lg:justify-around"
+          onSubmit={handleSubmit}
+        >
+          <div className="flex flex-col w-full">
             {/* Title */}
             <div className="mt-4 gap-y-8">
               <label
@@ -262,8 +262,8 @@ const ShareForm = ({ user }) => {
               </button>
             </div>
           </div>
-        </div>
-      </form>
+        </form>
+      </div>
     </>
   );
 };

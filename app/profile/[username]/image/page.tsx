@@ -3,9 +3,29 @@ import { getCurrentUser } from "@/lib/sessions";
 import Image from "next/image";
 import React from "react";
 import logoImg from "@/public/assets/icon.png";
+import { redirect } from "next/navigation";
+import { verifyAccessOfUpdateUser } from "@/lib/auth";
+import { checkUserExits } from "@/lib/users";
+import NotFoundPage from "@/components/NotFoundPage";
 
-const page = () => {
+const UpdateImagePage = async ({ params }) => {
+  const { username } = params;
   const currentUser = getCurrentUser();
+  let convertedUsername = username.replace(/-/g, " ");
+
+  if (currentUser === undefined) {
+    return redirect("/login");
+  }
+
+  const checkExists = checkUserExits(convertedUsername);
+  if (!checkExists) {
+    return <NotFoundPage url={"/profile"} />;
+  }
+
+  const checkAccess = await verifyAccessOfUpdateUser(convertedUsername);
+  if (!checkAccess) {
+    redirect(`/profile/${username}`);
+  }
   return (
     <>
       <div className="mt-10 flex flex-col">
@@ -35,4 +55,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default UpdateImagePage;

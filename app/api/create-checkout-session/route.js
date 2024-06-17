@@ -21,6 +21,7 @@ export async function POST(request) {
             product_data: {
               name: artPiece.title,
               description: artPiece.description,
+              images: [artPiece.imageUrl],
             },
             unit_amount: artPiece.price * 100, // price in cents
           },
@@ -31,6 +32,7 @@ export async function POST(request) {
       metadata: {
         title: artPiece.title,
         medium: artPiece.medium,
+        imageUrl: artPiece.imageUrl,
         description: artPiece.description,
         gallery: artPiece.gallery,
         city: artPiece.city,

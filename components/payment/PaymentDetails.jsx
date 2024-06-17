@@ -2,9 +2,12 @@
 
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { convertedUrl } from "@/headers/MainHeaderClient";
 import Image from "next/image";
 import Link from "next/link";
+
+export const convertedUrl = (url) => {
+  return url.replace(/ /g, "-");
+};
 
 export default function PaymentDetails() {
   const searchParams = useSearchParams();
@@ -15,7 +18,12 @@ export default function PaymentDetails() {
 
   useEffect(() => {
     if (session_id) {
-      fetch(`/api/payment-details?session_id=${session_id}`)
+      fetch(`/api/payment-details?session_id=${session_id}`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: process.env.API_SECRET_KEY,
+        },
+      })
         .then((response) => response.json())
         .then((data) => {
           if (data.error) {
@@ -31,6 +39,7 @@ export default function PaymentDetails() {
         });
     }
   }, [session_id]);
+  // console.log(paymentDetails);
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
@@ -67,9 +76,7 @@ export default function PaymentDetails() {
         </div>
         <div>
           <Image
-            src={convertedUrl(
-              `/assets/art_pieces/${paymentDetails.metadata.title}.jpeg`
-            )}
+            src={paymentDetails.metadata.imageUrl}
             width={500}
             height={400}
             // fill

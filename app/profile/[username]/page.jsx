@@ -1,8 +1,9 @@
 import ArtPiece from "@/components/arts/ArtPiece";
 import LoadingData from "@/components/LoadingData";
+import NotFoundPage from "@/components/NotFoundPage";
 import { getAllArtsByUserId } from "@/lib/artPieces";
 import { getCurrentUser } from "@/lib/sessions";
-import { getUserByName } from "@/lib/users";
+import { checkUserExits, getUserByName } from "@/lib/users";
 import Image from "next/image";
 import Link from "next/link";
 import React, { Suspense } from "react";
@@ -13,7 +14,6 @@ export function getData(username) {
   let currentUser = getCurrentUser();
   let artPieces = getAllArtsByUserId(user.id);
   return {
-    convertedUsername,
     user,
     currentUser,
     artPieces,
@@ -22,8 +22,14 @@ export function getData(username) {
 
 const ProfilePageOfUser = async ({ params }) => {
   const { username } = params;
-  const { convertedUsername, user, currentUser, artPieces } = getData(username);
+  let convertedUsername = username.replace(/-/g, " ");
+  const checkExists = checkUserExits(convertedUsername);
+  // console.log(checkExists);
+  if (!checkExists) {
+    return <NotFoundPage url={"/profile"} />;
+  }
 
+  const { user, currentUser, artPieces } = getData(username);
   // console.log(artPieces);
   // console.log(currentUser);
 

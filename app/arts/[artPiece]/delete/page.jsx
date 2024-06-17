@@ -1,13 +1,23 @@
 import ArtPiece from "@/components/arts/ArtPiece";
 import DeleteArtForm from "@/components/forms/DeleteArtForm";
-import { getArtPieceByTitle } from "@/lib/artPieces";
+import NotFoundPage from "@/components/NotFoundPage";
+import { checkArtPieceExits, getArtPieceByTitle } from "@/lib/artPieces";
 import { verifyAccessOfArtPiece } from "@/lib/auth";
+import { getCurrentUser } from "@/lib/sessions";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import React from "react";
 
 const DeleteArtPage = async ({ params }) => {
+  const currentUser = getCurrentUser();
+  if (currentUser === undefined) {
+    redirect("/login");
+  }
   const { artPiece } = params;
+  const checkExists = checkArtPieceExits(artPiece);
+  if (!checkExists) {
+    return <NotFoundPage url={"/arts"} />;
+  }
   const checkAccess = await verifyAccessOfArtPiece(artPiece);
   if (!checkAccess) {
     redirect(`/arts/${artPiece}`);
@@ -25,7 +35,7 @@ const DeleteArtPage = async ({ params }) => {
           permanently removed.<b> This action cannot be undone.</b>
         </p>
         <div className="flex flex-row gap-x-4 mt-10 px-4 py-3 sm:px-6">
-          <DeleteArtForm title={art.title} />
+          <DeleteArtForm title={art.title} url={art.imageUrl} />
           <Link
             href={`/arts/${artPiece}`}
             className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"

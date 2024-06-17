@@ -6,13 +6,20 @@ import TagsGrid from "@/components/arts/TagsGrid";
 import ReviewsGrid from "@/components/arts/ReviewsGrid";
 import LoadingData from "@/components/LoadingData";
 import Link from "next/link";
-import { getArtPieceByTitle } from "@/lib/artPieces";
+import { checkArtPieceExits, getArtPieceByTitle } from "@/lib/artPieces";
 import { getCurrentUser } from "@/lib/sessions";
 import PaymentButton from "@/components/arts/PaymentButton";
 import { getUserById } from "@/lib/users";
+import NotFoundPage from "@/components/NotFoundPage";
 
 const ArtPiecePage = async ({ params }) => {
   const { artPiece } = params;
+
+  const checkExists = checkArtPieceExits(artPiece);
+  if (!checkExists) {
+    return <NotFoundPage url={"/arts"}/>;
+  }
+
   const artPieceData = getArtPieceByTitle({ title: artPiece });
   const currentUser = getCurrentUser();
   let buyer;

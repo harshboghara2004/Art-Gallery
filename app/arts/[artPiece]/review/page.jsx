@@ -1,13 +1,24 @@
 import ArtPiece from "@/components/arts/ArtPiece";
 import ReviewForm from "@/components/forms/ReviewForm";
-import { getArtPieceByTitle } from "@/lib/artPieces";
+import { checkArtPieceExits, getArtPieceByTitle } from "@/lib/artPieces";
 import React from "react";
 
 import Image from "next/image";
 import logoImg from "@/public/assets/icon.png";
+import { getCurrentUser } from "@/lib/sessions";
+import NotFoundPage from "@/components/NotFoundPage";
+import { redirect } from "next/navigation";
 
 const ReviewPage = ({ params }) => {
+  const currentUser = getCurrentUser();
+  if (currentUser === undefined) {
+    redirect("/login");
+  }
   const { artPiece } = params;
+  const checkExists = checkArtPieceExits(artPiece);
+  if (!checkExists) {
+    return <NotFoundPage url={"/arts"} />;
+  }
   const artPieceData = getArtPieceByTitle({ title: artPiece });
   return (
     <>
