@@ -14,7 +14,7 @@ const ArtPiecePage = ({ params }) => {
   }
   const checkExists = checkArtPieceExits(artPiece);
   if (!checkExists) {
-    return <NotFoundPage url={"/arts"}/>;
+    return <NotFoundPage url={"/arts"} />;
   }
   const artPieceData = getArtPieceByTitle({ title: artPiece });
   if (artPieceData.paymentStatus === 0) {
@@ -27,8 +27,11 @@ const ArtPiecePage = ({ params }) => {
 
   return (
     <div className="p-4">
-      <h1 className="text-2xl mb-4">Art Piece: {artPiece}</h1>
-      <div className="flex flex-col gap-10 h-screen items-center">
+      <div className="mx-auto flex flex-col lg:flex-row justify-evenly text-2xl mb-4 border-2 h-20 items-center border-gray-400 rounded-3xl">
+        <p className="font-serif text-2xl text-wrap">Payment Gateway &nbsp;</p>
+        <p className="font-serif text-2xl"> Art Piece: {artPieceData.title}</p>
+      </div>
+      <div className="mt-20 flex flex-col gap-10 h-screen items-center">
         <Stepper
           currentUser={currentUser}
           buyer={buyer}

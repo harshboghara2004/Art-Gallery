@@ -250,7 +250,11 @@ const ShareForm = ({ user }) => {
               </p>
             </div>
 
-            {errorMsg && <p>{errorMsg?.errorMsg}</p>}
+            {errorMsg && (
+              <p className="text-lg font-medium text-red-500">
+                {errorMsg?.errorMsg}
+              </p>
+            )}
 
             {/* Submit Button */}
             <div>

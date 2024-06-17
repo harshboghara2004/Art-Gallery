@@ -6,7 +6,6 @@ import {
   updateArtPiece,
   updateArtPieceImageUrl,
 } from "@/lib/artPieces";
-import { convertedUrl } from "@/lib/database";
 import { revalidatePath, revalidateTag } from "next/cache";
 import { redirect } from "next/navigation";
 

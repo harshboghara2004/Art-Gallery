@@ -10,7 +10,6 @@ import {
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
-// Step 1
 export async function initiatePayment(title) {
   await startPayment(title);
   revalidatePath(convertedUrl(`/arts/${title}`));
