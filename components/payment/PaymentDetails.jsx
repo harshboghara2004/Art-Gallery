@@ -55,7 +55,7 @@ export default function PaymentDetails() {
             Your request to buy an art is sent to the artist.
           </p>
           <p className="mt-2 text-xl text-gray-500">
-            artist's details:{" "}
+            artist details:{" "}
             <Link
               href={convertedUrl(
                 `/profile/${paymentDetails.metadata.artistName}`

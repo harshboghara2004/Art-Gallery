@@ -8,6 +8,7 @@ import { verifyAccessOfUpdateUser } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import UpdateForm from "@/components/forms/UpdateForm";
 import { getCurrentUser } from "@/lib/sessions";
+import NotFoundPage from "@/components/NotFoundPage";
 
 const UpdateProfilePage = async ({ params }) => {
   const { username } = params;

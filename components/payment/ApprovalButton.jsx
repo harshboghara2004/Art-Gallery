@@ -1,5 +1,6 @@
 "use client";
 
+import { deleteApprovalNotificationAction } from "@/actions/notification-actions";
 import { cancelPaymentAction } from "@/actions/payment-actions";
 import Link from "next/link";
 import React from "react";
@@ -13,6 +14,7 @@ const ApprovalButton = ({ title }) => {
 
   const handleCancelButton = async () => {
     await cancelPaymentAction(title);
+    await deleteApprovalNotificationAction({ artTitle: title });
   };
 
   return (

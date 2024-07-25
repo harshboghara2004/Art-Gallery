@@ -1,14 +1,19 @@
 "use client";
 
 import React from "react";
-import { loadStripe } from "@stripe/stripe-js";
 import { initiatePayment } from "@/actions/payment-actions";
+import { initiatePaymentNotificationAction } from "@/actions/notification-actions";
 
-const PaymentButton = ({ artPiece }) => {
+const PaymentButton = ({ artPiece, currentUserId }) => {
   // console.log(artPiece);
 
   const handlePaymentButton = async () => {
     await initiatePayment(artPiece.title);
+    await initiatePaymentNotificationAction({
+      artTitle: artPiece.title,
+      from_user: artPiece.artistId,
+      to_user: currentUserId,
+    });
   };
 
   return (

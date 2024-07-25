@@ -90,7 +90,7 @@ const LoginForm = () => {
 
           {/* Other Links */}
           <p className="mt-10 text-center text-sm text-gray-500">
-            Don't have an account?{" "}
+            Do not have an account?{" "}
             <Link
               href="/register"
               className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"

@@ -5,6 +5,7 @@ import { getCurrentUser } from "@/lib/sessions";
 import { getUserById } from "@/lib/users";
 import React from "react";
 import ApproveForm from "@/components/forms/ApproveForm";
+import NotFoundPage from "@/components/NotFoundPage";
 
 const ApprovePage = async ({ params }) => {
   const currentUser = getCurrentUser();

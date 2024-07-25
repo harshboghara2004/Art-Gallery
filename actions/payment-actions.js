@@ -13,7 +13,6 @@ import { redirect } from "next/navigation";
 export async function initiatePayment(title) {
   await startPayment(title);
   revalidatePath(convertedUrl(`/arts/${title}`));
-  redirect(convertedUrl(`/arts/${title}/payment`));
 }
 
 export async function paymentFromBuyer(title) {
@@ -30,5 +29,4 @@ export async function approvalActionByArtist(title) {
 export async function cancelPaymentAction(title) {
   await cancelPayment(title);
   revalidatePath(convertedUrl(`/arts/${title}`));
-  redirect(convertedUrl(`/arts/${title}`));
 }
