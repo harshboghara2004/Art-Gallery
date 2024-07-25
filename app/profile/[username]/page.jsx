@@ -8,18 +8,6 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { Suspense } from "react";
 
-export function getData(username) {
-  let convertedUsername = username.replace(/-/g, " ");
-  let user = getUserByName(convertedUsername);
-  let currentUser = getCurrentUser();
-  let artPieces = getAllArtsByUserId(user.id);
-  return {
-    user,
-    currentUser,
-    artPieces,
-  };
-}
-
 const ProfilePageOfUser = async ({ params }) => {
   const { username } = params;
   let convertedUsername = username.replace(/-/g, " ");
@@ -29,7 +17,9 @@ const ProfilePageOfUser = async ({ params }) => {
     return <NotFoundPage url={"/profile"} />;
   }
 
-  const { user, currentUser, artPieces } = getData(username);
+  const currentUser = await getCurrentUser();
+  const user = await getUserByName(convertedUsername);
+  const artPieces = getAllArtsByUserId(user.id);
   // console.log(artPieces);
   // console.log(currentUser);
 
