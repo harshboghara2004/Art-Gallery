@@ -1,8 +1,8 @@
-// db/initDB.js
-const Database = require("better-sqlite3");
-const db = new Database("arts.db");
+// // db/initDB.js
+// const Database = require("better-sqlite3");
+// const db = new Database("arts.db");
 
-// Users
+// // Users
 // db.exec(
 //   `CREATE TABLE IF NOT EXISTS Users (
 //   id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -17,8 +17,8 @@ const db = new Database("arts.db");
 // `
 // );
 
-// // https://files.edgestore.dev/aerf8ik4hbz52apm/myPublicImages/_public/artist/b03bd57f-f634-4eef-987e-405e8c8de596.jpg
-// // https://files.edgestore.dev/aerf8ik4hbz52apm/myPublicImages/_public/artist/b03bd57f-f634-4eef-987e-405e8c8de596-thumb.jpg
+// // // https://files.edgestore.dev/aerf8ik4hbz52apm/myPublicImages/_public/artist/b03bd57f-f634-4eef-987e-405e8c8de596.jpg
+// // // https://files.edgestore.dev/aerf8ik4hbz52apm/myPublicImages/_public/artist/b03bd57f-f634-4eef-987e-405e8c8de596-thumb.jpg
 
 // const users = [
 //   [
@@ -119,7 +119,7 @@ const db = new Database("arts.db");
 // `);
 // users.forEach((user) => insertUsers.run(user));
 
-// Sessions
+// // Sessions
 // db.exec(`
 //   CREATE TABLE IF NOT EXISTS sessions (
 //     id TEXT NOT NULL PRIMARY KEY,
@@ -129,7 +129,7 @@ const db = new Database("arts.db");
 //   );
 // `);
 
-// ArtPieces
+// // ArtPieces
 // db.exec(`
 //     CREATE TABLE IF NOT EXISTS ArtPieces (
 //       title TEXT PRIMARY KEY,
@@ -230,7 +230,7 @@ const db = new Database("arts.db");
 
 // artPieces.forEach((artPiece) => insertArtPieces.run(artPiece));
 
-// Reviews
+// // Reviews
 
 // db.exec(`
 // CREATE TABLE IF NOT EXISTS Reviews (
@@ -268,7 +268,7 @@ const db = new Database("arts.db");
 
 // reviews.forEach((review) => insertReviews.run(review));
 
-// Tags
+// // Tags
 
 // db.exec(`
 // CREATE TABLE IF NOT EXISTS Tags (
@@ -309,7 +309,7 @@ const db = new Database("arts.db");
 
 // tags.forEach((tag) => insertTags.run(tag));
 
-// Notifications
+// // Notifications
 
 // db.exec(
 //   `CREATE TABLE notifications (
