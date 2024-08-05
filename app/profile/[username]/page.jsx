@@ -34,7 +34,7 @@ const ProfilePageOfUser = async ({ params }) => {
           className="rounded-3xl"
           // fill
         />
-        {currentUser && (
+        {currentUser && user.id === currentUser.id && (
           <Link
             href={`/profile/${username}/image`}
             className="mx-auto w-24 inline-flex px-4 text-center items-center rounded-md bg-blue-50 py-1 text-xs font-semibold text-blue-700 ring-1 ring-inset ring-blue-700/10"

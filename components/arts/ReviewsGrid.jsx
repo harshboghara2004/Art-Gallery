@@ -3,6 +3,7 @@ import { StarIcon } from "@heroicons/react/20/solid";
 import Link from "next/link";
 import { convertedUrl } from "@/lib/database";
 import DeleteReviewForm from "../forms/DeleteReviewForm";
+import { getCurrentUser } from "@/lib/sessions";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -44,6 +45,21 @@ function ReviewCard({ review, currentUserId, title }) {
   );
 }
 
+const AddReview = ({ title }) => {
+  const currentUser = getCurrentUser();
+  if (currentUser === undefined) {
+    return <p className="font-serif text-lg font-light italic"> Login to Review</p>
+  }
+  return (
+    <Link
+      href={convertedUrl(`/arts/${title}/review`)}
+      className="px-4 py-2 rounded-lg bg-indigo-600 text-sm font-medium text-white"
+    >
+      Give a Review
+    </Link>
+  );
+};
+
 const ReviewsGrid = ({ reviews, title, currentUserId }) => {
   // console.log(title);
   return (
@@ -53,12 +69,7 @@ const ReviewsGrid = ({ reviews, title, currentUserId }) => {
           Reviews ({reviews.length})
         </h2>
         <div>
-          <Link
-            href={convertedUrl(`/arts/${title}/review`)}
-            className="px-4 py-2 rounded-lg bg-indigo-600 text-sm font-medium text-white"
-          >
-            Give a Review
-          </Link>
+          <AddReview title={title}/>
         </div>
       </div>
 
