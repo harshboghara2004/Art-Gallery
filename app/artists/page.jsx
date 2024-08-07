@@ -3,8 +3,9 @@ import LoadingData from "@/components/LoadingData";
 import { getAllUsers } from "@/lib/users";
 import React, { Suspense } from "react";
 
-const AristsPage = () => {
-  let allArtists = getAllUsers();
+const AristsPage = async () => {
+  let allArtists = await getAllUsers();
+  // console.log(allArtists);
   return (
     <Suspense fallback={<LoadingData data="Artists" />}>
       <div className="m-8 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-3 ">

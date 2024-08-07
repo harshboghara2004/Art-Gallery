@@ -7,7 +7,8 @@ import logoImg from "@/public/assets/icon.png";
 import { useState } from "react";
 import Link from "next/link";
 import NavigationTabs from "./NavigationTabs";
-import { logout } from "@/actions/auth-actions";
+import { useAuth } from "@clerk/nextjs";
+import { redirect } from "next/navigation";
 
 export const convertedUrl = (url) => {
   return url.replace(/ /g, "-");
@@ -15,6 +16,13 @@ export const convertedUrl = (url) => {
 
 const MainHeaderClient = ({ user }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { signOut } = useAuth();
+
+  const handleLogout = async () => {
+    await signOut();
+    redirect("/sign-in");
+  };
+
   // console.log(user);
   return (
     <header className="absolute inset-x-0 top-0 z-50">
@@ -57,23 +65,22 @@ const MainHeaderClient = ({ user }) => {
                 />
                 <p className="text-sm font-medium py-2">{user.name},</p>
               </Link>
-              <form action={logout}>
-                <span className="sm:ml-3">
-                  <button
-                    type="submit"
-                    className="inline-flex items-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                  >
-                    Log Out
-                  </button>
-                </span>
-              </form>
+              <span className="sm:ml-3">
+                <button
+                  type="submit"
+                  onClick={handleLogout}
+                  className="inline-flex items-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                >
+                  Log Out
+                </button>
+              </span>
             </div>
           ) : (
             <Link
-              href="/login"
+              href="/sign-in"
               className="text-sm font-semibold leading-6 text-gray-900"
             >
-              Log in <span aria-hidden="true">&rarr;</span>
+              Sign in <span aria-hidden="true">&rarr;</span>
             </Link>
           )}
         </div>
@@ -123,23 +130,22 @@ const MainHeaderClient = ({ user }) => {
                       />
                       <p className="text-sm font-medium py-2">{user.name},</p>
                     </Link>
-                    <form action={logout}>
-                      <span className="sm:ml-3">
-                        <button
-                          type="submit"
-                          className="inline-flex items-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                        >
-                          Log Out
-                        </button>
-                      </span>
-                    </form>
+                    <span className="sm:ml-3">
+                      <button
+                        onClick={handleLogout}
+                        type="submit"
+                        className="inline-flex items-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                      >
+                        Log Out
+                      </button>
+                    </span>
                   </div>
                 ) : (
                   <Link
-                    href="/login"
+                    href="/sign-in"
                     className="text-sm font-semibold leading-6 text-gray-900"
                   >
-                    Log in <span aria-hidden="true">&rarr;</span>
+                    Sign in <span aria-hidden="true">&rarr;</span>
                   </Link>
                 )}
               </div>

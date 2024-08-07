@@ -3,9 +3,10 @@ import TagsGrid from "./TagsGrid";
 import Image from "next/image";
 import TimeAndPlace from "./TimeAndPlace";
 import Link from "next/link";
-import { convertedUrl } from "@/lib/database";
+import { convertedUrl } from "@/lib/url";
 
 const ArtPiece = ({ access, art, isInArtsPage }) => {
+  // console.log(art);
   return (
     <article
       key={art.title}

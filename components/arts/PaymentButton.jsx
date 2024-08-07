@@ -2,18 +2,12 @@
 
 import React from "react";
 import { initiatePayment } from "@/actions/payment-actions";
-import { initiatePaymentNotificationAction } from "@/actions/notification-actions";
 
 const PaymentButton = ({ artPiece, currentUserId }) => {
   // console.log(artPiece);
 
   const handlePaymentButton = async () => {
     await initiatePayment(artPiece.title);
-    await initiatePaymentNotificationAction({
-      artTitle: artPiece.title,
-      from_user: artPiece.artistId,
-      to_user: currentUserId,
-    });
   };
 
   return (

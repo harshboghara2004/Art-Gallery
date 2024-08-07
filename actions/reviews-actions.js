@@ -1,6 +1,6 @@
 "use server";
 
-import { convertedUrl } from "@/lib/database";
+import { convertedUrl } from "@/lib/url";
 import { createReview, deleteReview } from "@/lib/reviews";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";

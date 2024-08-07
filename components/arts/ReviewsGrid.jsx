@@ -1,7 +1,7 @@
 import React from "react";
 import { StarIcon } from "@heroicons/react/20/solid";
 import Link from "next/link";
-import { convertedUrl } from "@/lib/database";
+import { convertedUrl } from "@/lib/url";
 import DeleteReviewForm from "../forms/DeleteReviewForm";
 import { getCurrentUser } from "@/lib/sessions";
 
@@ -48,7 +48,9 @@ function ReviewCard({ review, currentUserId, title }) {
 const AddReview = ({ title }) => {
   const currentUser = getCurrentUser();
   if (currentUser === undefined) {
-    return <p className="font-serif text-lg font-light italic"> Login to Review</p>
+    return (
+      <p className="font-serif text-lg font-light italic"> Login to Review</p>
+    );
   }
   return (
     <Link
@@ -69,7 +71,7 @@ const ReviewsGrid = ({ reviews, title, currentUserId }) => {
           Reviews ({reviews.length})
         </h2>
         <div>
-          <AddReview title={title}/>
+          <AddReview title={title} />
         </div>
       </div>
 

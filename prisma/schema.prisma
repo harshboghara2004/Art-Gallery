@@ -1,0 +1,66 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("POSTGRES_PRISMA_URL")
+  directUrl = env("POSTGRES_URL_NON_POOLING")
+}
+
+model User {
+  id        Int        @id @default(autoincrement())
+  name      String
+  gender    String?
+  email     String     @unique
+  country   String?
+  password  String?
+  bio       String?
+  photoUrl  String?
+  createdAt DateTime   @default(now())
+  artPieces ArtPiece[] @relation("Artist")
+  reviews   Review[]
+  Session   Session[]
+}
+
+model ArtPiece {
+  title         String   @id
+  artistId      Int?
+  yearCreated   Int?
+  medium        String?
+  description   String?
+  imageUrl      String?
+  gallery       String?
+  city          String?
+  country       String?
+  price         Float?
+  buyerId       Int?
+  paymentStatus Int?
+  artist        User?    @relation("Artist", fields: [artistId], references: [id])
+  reviews       Review[]
+  tags          Tag[]
+}
+
+model Review {
+  id       Int      @id @default(autoincrement())
+  artTitle String
+  userId   Int
+  rating   Float?
+  comment  String?
+  artPiece ArtPiece @relation(fields: [artTitle], references: [title])
+  user     User     @relation(fields: [userId], references: [id])
+}
+
+model Tag {
+  id       Int      @id @default(autoincrement())
+  artTitle String
+  tag      String
+  artPiece ArtPiece @relation(fields: [artTitle], references: [title])
+}
+
+model Session {
+  id        String @id
+  expiresAt Int
+  userId    Int
+  User      User   @relation(fields: [userId], references: [id])
+}

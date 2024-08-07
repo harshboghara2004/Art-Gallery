@@ -1,12 +1,12 @@
 import React, { Suspense } from "react";
-import { convertedUrl } from "@/lib/database";
+import { convertedUrl, convertedUrlBack } from "@/lib/url";
 import Image from "next/image";
 import locationPin from "@/public/assets/location-pin.svg";
 import TagsGrid from "@/components/arts/TagsGrid";
 import ReviewsGrid from "@/components/arts/ReviewsGrid";
 import LoadingData from "@/components/LoadingData";
 import Link from "next/link";
-import { checkArtPieceExits, getArtPieceByTitle } from "@/lib/artPieces";
+import { checkArtPieceExists, getArtPieceByTitle } from "@/lib/artPieces";
 import { getCurrentUser } from "@/lib/sessions";
 import PaymentButton from "@/components/arts/PaymentButton";
 import { getUserById } from "@/lib/users";
@@ -14,18 +14,19 @@ import NotFoundPage from "@/components/NotFoundPage";
 
 const ArtPiecePage = async ({ params }) => {
   const { artPiece } = params;
+  const title = convertedUrlBack(artPiece);
 
-  const checkExists = checkArtPieceExits(artPiece);
+  const checkExists = await checkArtPieceExists(title);
   if (!checkExists) {
     return <NotFoundPage url={"/arts"} />;
   }
 
-  const artPieceData = getArtPieceByTitle({ title: artPiece });
-  const currentUser = getCurrentUser();
+  const artPieceData = await getArtPieceByTitle(title);
+  const currentUser = await getCurrentUser();
   let buyer;
 
   if (artPieceData.buyerId !== null) {
-    buyer = getUserById(artPieceData.buyerId);
+    buyer = await getUserById(artPieceData.buyerId);
   }
   // console.log(artPieceData);
   // console.log(currentUser);

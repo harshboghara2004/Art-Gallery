@@ -1,6 +1,6 @@
 "use server";
 
-import { convertedUrl } from "@/lib/database";
+import { convertedUrl } from "@/lib/url";
 import { addTag, deleteTag } from "@/lib/tags";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";

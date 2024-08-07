@@ -1,5 +1,4 @@
 "use client";
-import { deleteApprovalNotificationAction } from "@/actions/notification-actions";
 import {
   approvalActionByArtist,
   cancelPaymentAction,
@@ -10,13 +9,11 @@ const ApproveForm = ({ title }) => {
   const handleApprove = async () => {
     console.log("approve");
     await approvalActionByArtist(title);
-    await deleteApprovalNotificationAction({ artTitle: title });
   };
 
   const handleDecline = async () => {
     console.log("decline");
     await cancelPaymentAction(title);
-    await deleteApprovalNotificationAction({ artTitle: title });
   };
 
   return (

@@ -16,7 +16,7 @@ export default async function Page({ params }) {
   const { artPiece } = params;
   const checkExists = checkArtPieceExits(artPiece);
   if (!checkExists) {
-    return <NotFoundPage url={"/arts"}/>;
+    return <NotFoundPage url={"/arts"} />;
   }
   const checkAccess = await verifyAccessOfArtPiece(artPiece);
   if (!checkAccess) {

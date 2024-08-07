@@ -1,4 +1,4 @@
-import { convertedUrl } from "@/lib/database";
+import { convertedUrl } from "@/lib/url";
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
 

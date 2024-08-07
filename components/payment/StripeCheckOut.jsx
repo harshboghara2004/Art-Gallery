@@ -1,7 +1,6 @@
 import React from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import { cancelPaymentAction } from "@/actions/payment-actions";
-import { cancelPaymentNotificationAction } from "@/actions/notification-actions";
 
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
@@ -35,10 +34,6 @@ const StripeCheckOut = ({ artPiece }) => {
   const handleCancel = async () => {
     // console.log("cancel");
     await cancelPaymentAction(artPiece.title);
-    await cancelPaymentNotificationAction({
-      artTitle: artPiece.title,
-      newPath: true,
-    });
   };
 
   return (

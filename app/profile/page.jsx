@@ -1,4 +1,4 @@
-import { convertedUrl } from "@/lib/database";
+import { convertedUrl } from "@/lib/url";
 import { getCurrentUser } from "@/lib/sessions";
 import { redirect } from "next/navigation";
 import React, { use } from "react";

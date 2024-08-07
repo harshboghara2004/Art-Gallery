@@ -1,6 +1,6 @@
 "use server";
 
-import { convertedUrl } from "@/lib/database";
+import { convertedUrl } from "@/lib/url";
 import {
   approvalFromArtist,
   cancelPayment,
