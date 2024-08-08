@@ -1,26 +1,29 @@
 import NotFoundPage from "@/components/NotFoundPage";
 import Stepper from "@/components/payment/Stepper";
 import { checkArtPieceExits, getArtPieceByTitle } from "@/lib/artPieces";
+import { convertedUrlBack } from "@/lib/url";
 import { getCurrentUser } from "@/lib/users";
 import { getUserById } from "@/lib/users";
 import { redirect } from "next/navigation";
 import React from "react";
 
-const ArtPiecePage = ({ params }) => {
+const ArtPiecePage = async ({ params }) => {
   const { artPiece } = params;
-  const currentUser = getCurrentUser();
+  const currentUser = await getCurrentUser();
   if (currentUser === undefined) {
-    redirect("/login");
+    redirect("/sign-in");
   }
-  const checkExists = checkArtPieceExits(artPiece);
-  if (!checkExists) {
-    return <NotFoundPage url={"/arts"} />;
-  }
-  const artPieceData = getArtPieceByTitle({ title: artPiece });
-  if (artPieceData.paymentStatus === 0) {
-    redirect(`/arts/${artPiece}`);
-  }
-  const buyer = getUserById(artPieceData.buyerId);
+  // const checkExists = checkArtPieceExits(artPiece);
+  // if (!checkExists) {
+  //   return <NotFoundPage url={"/arts"} />;
+  // }
+  // const artPieceData = getArtPieceByTitle({ title: artPiece });
+  // if (artPieceData.paymentStatus === 0) {
+  //   redirect(`/arts/${artPiece}`);
+  // }
+  const artPieceData = await getArtPieceByTitle(convertedUrlBack(artPiece));
+
+  const buyer = await getUserById(artPieceData.buyerId);
   if (buyer.id !== currentUser.id && artPieceData.artistId !== currentUser.id) {
     redirect(`/arts/${artPiece}`);
   }

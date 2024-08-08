@@ -1,6 +1,6 @@
 import ArtPiece from "@/components/arts/ArtPiece";
 import ReviewForm from "@/components/forms/ReviewForm";
-import { checkArtPieceExits, getArtPieceByTitle } from "@/lib/artPieces";
+import { checkArtPieceExists, getArtPieceByTitle } from "@/lib/artPieces";
 import React from "react";
 
 import Image from "next/image";
@@ -8,18 +8,19 @@ import logoImg from "@/public/assets/icon.png";
 import { getCurrentUser } from "@/lib/users";
 import NotFoundPage from "@/components/NotFoundPage";
 import { redirect } from "next/navigation";
+import { convertedUrlBack } from "@/lib/url";
 
-const ReviewPage = ({ params }) => {
-  const currentUser = getCurrentUser();
+const ReviewPage = async ({ params }) => {
+  const currentUser = await getCurrentUser();
   if (currentUser === undefined) {
     redirect("/login");
   }
   const { artPiece } = params;
-  const checkExists = checkArtPieceExits(artPiece);
-  if (!checkExists) {
-    return <NotFoundPage url={"/arts"} />;
-  }
-  const artPieceData = getArtPieceByTitle({ title: artPiece });
+  // const checkExists = checkArtPieceExists(artPiece);
+  // if (!checkExists) {
+  //   return <NotFoundPage url={"/arts"} />;
+  // }
+  const artPieceData = await getArtPieceByTitle(convertedUrlBack(artPiece));
   return (
     <>
       <div className="mt-10 flex flex-col">

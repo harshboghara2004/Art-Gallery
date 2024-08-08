@@ -1,31 +1,33 @@
 import ArtPiece from "@/components/arts/ArtPiece";
-import { checkArtPieceExits, getArtPieceByTitle } from "@/lib/artPieces";
-import { verifyAccessOfArtPiece } from "@/lib/auth";
+import { checkArtPieceExists, getArtPieceByTitle } from "@/lib/artPieces";
+// import { verifyAccessOfArtPiece } from "@/lib/auth";
 import { getCurrentUser } from "@/lib/users";
 import { getUserById } from "@/lib/users";
 import React from "react";
 import ApproveForm from "@/components/forms/ApproveForm";
-import NotFoundPage from "@/components/NotFoundPage";
+import { convertedUrlBack } from "@/lib/url";
+// import NotFoundPage from "@/components/NotFoundPage";
 
 const ApprovePage = async ({ params }) => {
-  const currentUser = getCurrentUser();
+  const currentUser = await getCurrentUser();
   if (currentUser === undefined) {
-    redirect("/login");
+    redirect("/sign-in");
   }
   const { artPiece } = params;
-  const checkExists = checkArtPieceExits(artPiece);
-  if (!checkExists) {
-    return <NotFoundPage url={"/arts"} />;
-  }
-  const checkAccess = await verifyAccessOfArtPiece(artPiece);
-  if (!checkAccess) {
-    redirect(`/arts/${artPiece}`);
-  }
-  const art = getArtPieceByTitle({ title: artPiece });
+  // const checkExists = checkArtPieceExits(artPiece);
+  // if (!checkExists) {
+  //   return <NotFoundPage url={"/arts"} />;
+  // }
+  // const checkAccess = await verifyAccessOfArtPiece(artPiece);
+  // if (!checkAccess) {
+  //   redirect(`/arts/${artPiece}`);
+  // }
+  const art = await getArtPieceByTitle(convertedUrlBack(artPiece));
+
   if (art.buyerId === null) {
     redirect(`/arts/${artPiece}`);
   }
-  const buyer = getUserById(art.buyerId);
+  const buyer = await getUserById(art.buyerId);
 
   return (
     <div className="m-auto mt-10 flex gap-x-10 flex-col lg:flex-row">
