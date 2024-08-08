@@ -11,7 +11,7 @@ const ArtistCard = ({ artist }) => {
   return (
     <div className="p-10 flex border-2 rounded-3xl border-gray">
       {/* <p>Hello</p> */}
-      <Link href={convertedUrl(`/profile/${artist.name}`)}>
+      <Link href={`/profile/${artist.username}`}>
         <Image
           src={artist.photoUrl}
           alt={`${artist.name}-profile-photo`}
@@ -21,7 +21,7 @@ const ArtistCard = ({ artist }) => {
         />
       </Link>
       <div className="ml-4">
-        <Link href={convertedUrl(`/profile/${artist.name}`)}>
+        <Link href={`/profile/${artist.username}`}>
           <p className="text-2xl my-auto font-serif">{artist.name}</p>
         </Link>
         <p className="mt-5 text-md my-auto font-saas">{artist.bio}</p>

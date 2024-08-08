@@ -14,8 +14,10 @@ export default async function handler(req, res) {
         const user = await clerk.users.getUser(userId);
 
         // Example function to run after sign-up
+        const [username] = user.emailAddress[0].emailAddress.split('@');
         const userData = {
           name: `${user.firstName} ${user.lastName}`,
+          username: username,
           gender: "Not Specified",
           email: user.emailAddresses[0].emailAddress,
           country: "Not Specified",

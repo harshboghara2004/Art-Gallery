@@ -4,6 +4,7 @@ const prisma = new PrismaClient();
 const users = [
   [
     "Jane Doe",
+    "janedoe01",
     "Female",
     "janedoe01@gmail.com",
     "United States",
@@ -12,6 +13,7 @@ const users = [
   ],
   [
     "John Doe",
+    "johndoe02",
     "Male",
     "johndoe02@gmail.com",
     "Canada",
@@ -20,6 +22,7 @@ const users = [
   ],
   [
     "Alice Green",
+    "alicegreen03",
     "Female",
     "alicegreen03@gmail.com",
     "United States",
@@ -28,6 +31,7 @@ const users = [
   ],
   [
     "Michael Brown",
+    "michaelbrown04",
     "Male",
     "michaelbrown04@gmail.com",
     "United States",
@@ -36,6 +40,7 @@ const users = [
   ],
   [
     "Emma Wilson",
+    "emmawilson05",
     "Female",
     "emmawilson05@gmail.com",
     "Mexico",
@@ -44,6 +49,7 @@ const users = [
   ],
   [
     "John Smith",
+    "johnsmith06",
     "Male",
     "johnsmith06@gmail.com",
     "United States",
@@ -52,6 +58,7 @@ const users = [
   ],
   [
     "Emily Johnson",
+    "emilyjohnson07",
     "Female",
     "emilyjohnson07@gmail.com",
     "Canada",
@@ -60,6 +67,7 @@ const users = [
   ],
   [
     "Anna White",
+    "annawhite08",
     "Female",
     "annawhite08@gmail.com",
     "Mexico",
@@ -68,6 +76,7 @@ const users = [
   ],
   [
     "Mark Brown",
+    "markbrown09",
     "Male",
     "markbrown09@gmail.com",
     "Canada",
@@ -76,6 +85,7 @@ const users = [
   ],
   [
     "Rachel Moore",
+    "rachelmoore10",
     "Female",
     "rachelmoore10@gmail.com",
     "United States",
@@ -198,10 +208,11 @@ const tags = [
 async function main() {
   // Seed users
   for (const user of users) {
-    const [name, gender, email, country, bio, photoUrl] = user;
+    const [name, username, gender, email, country, bio, photoUrl] = user;
     await prisma.user.create({
       data: {
         name,
+        username,
         gender,
         email,
         country,

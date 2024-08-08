@@ -1,14 +1,13 @@
-import { convertedUrl } from "@/lib/url";
-import { getCurrentUser } from "@/lib/sessions";
+import React from "react";
+import { getCurrentUser } from "@/lib/users";
 import { redirect } from "next/navigation";
-import React, { use } from "react";
 
-const ProfilePage = () => {
-  let user = getCurrentUser();
+const ProfilePage = async () => {
+  let user = await getCurrentUser();
   if (user === undefined) {
-    redirect("/login");
+    redirect("/sign-in");
   }
-  redirect(convertedUrl(`/profile/${user.name}`));
+  redirect(`/profile/${user.username}`);
   return <div>ProfilePage of Current User</div>;
 };
 

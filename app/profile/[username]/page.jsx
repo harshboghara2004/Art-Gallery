@@ -2,26 +2,31 @@ import ArtPiece from "@/components/arts/ArtPiece";
 import LoadingData from "@/components/LoadingData";
 import NotFoundPage from "@/components/NotFoundPage";
 import { getAllArtsByUserId } from "@/lib/artPieces";
-import { getCurrentUser } from "@/lib/sessions";
-import { checkUserExits, getUserByName } from "@/lib/users";
+import {
+  checkUserExists,
+  getCurrentUser,
+  getUserByName,
+  getUserByUsername,
+} from "@/lib/users";
 import Image from "next/image";
 import Link from "next/link";
 import React, { Suspense } from "react";
 
 const ProfilePageOfUser = async ({ params }) => {
   const { username } = params;
-  let convertedUsername = username.replace(/-/g, " ");
-  const checkExists = checkUserExits(convertedUsername);
+  // const checkExists = checkUserExists(convertedUsername);
   // console.log(checkExists);
-  if (!checkExists) {
-    return <NotFoundPage url={"/profile"} />;
-  }
+  // if (!checkExists) {
+  //   return <NotFoundPage url={"/profile"} />;
+  // }
 
   const currentUser = await getCurrentUser();
-  const user = await getUserByName(convertedUsername);
-  const artPieces = getAllArtsByUserId(user.id);
+  const user = await getUserByUsername(username);
+  // console.log(user);
+  const artPieces = await getAllArtsByUserId(user.id);
   // console.log(artPieces);
   // console.log(currentUser);
+  // return <p>{username}</p>
 
   return (
     <div className="lg:flex p-10">
@@ -74,9 +79,7 @@ const ProfilePageOfUser = async ({ params }) => {
               ? "Created Arts:"
               : "No Arts till yet But Working hard to create an Art."}
           </p>
-          <Suspense
-            fallback={<LoadingData data={`Arts of ${convertedUsername}`} />}
-          >
+          <Suspense fallback={<LoadingData data={`Arts of ${user.name}`} />}>
             <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-2 ">
               {artPieces.length > 0 &&
                 artPieces.map((art) => (

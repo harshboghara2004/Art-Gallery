@@ -11,6 +11,7 @@ datasource db {
 model User {
   id        Int        @id @default(autoincrement())
   name      String
+  username  String     @unique
   gender    String?
   email     String     @unique
   country   String?
@@ -20,7 +21,6 @@ model User {
   createdAt DateTime   @default(now())
   artPieces ArtPiece[] @relation("Artist")
   reviews   Review[]
-  Session   Session[]
 }
 
 model ArtPiece {
@@ -56,11 +56,4 @@ model Tag {
   artTitle String
   tag      String
   artPiece ArtPiece @relation(fields: [artTitle], references: [title])
-}
-
-model Session {
-  id        String @id
-  expiresAt Int
-  userId    Int
-  User      User   @relation(fields: [userId], references: [id])
 }

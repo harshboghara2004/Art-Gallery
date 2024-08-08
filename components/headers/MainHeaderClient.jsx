@@ -23,7 +23,6 @@ const MainHeaderClient = ({ user }) => {
     redirect("/sign-in");
   };
 
-  // console.log(user);
   return (
     <header className="absolute inset-x-0 top-0 z-50">
       <nav
