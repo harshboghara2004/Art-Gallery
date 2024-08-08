@@ -1,5 +1,5 @@
 import UpdateProfileImage from "@/components/forms/UpdateProfileImage";
-import { getCurrentUser } from "@/lib/sessions";
+import { getCurrentUser } from "@/lib/users";
 import Image from "next/image";
 import React from "react";
 import logoImg from "@/public/assets/icon.png";

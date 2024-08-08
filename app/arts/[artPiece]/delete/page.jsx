@@ -3,7 +3,7 @@ import DeleteArtForm from "@/components/forms/DeleteArtForm";
 import NotFoundPage from "@/components/NotFoundPage";
 import { checkArtPieceExits, getArtPieceByTitle } from "@/lib/artPieces";
 import { verifyAccessOfArtPiece } from "@/lib/auth";
-import { getCurrentUser } from "@/lib/sessions";
+import { getCurrentUser } from "@/lib/users";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import React from "react";

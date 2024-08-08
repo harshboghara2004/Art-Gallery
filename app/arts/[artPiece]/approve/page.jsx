@@ -1,7 +1,7 @@
 import ArtPiece from "@/components/arts/ArtPiece";
 import { checkArtPieceExits, getArtPieceByTitle } from "@/lib/artPieces";
 import { verifyAccessOfArtPiece } from "@/lib/auth";
-import { getCurrentUser } from "@/lib/sessions";
+import { getCurrentUser } from "@/lib/users";
 import { getUserById } from "@/lib/users";
 import React from "react";
 import ApproveForm from "@/components/forms/ApproveForm";

@@ -1,6 +1,5 @@
 import React from "react";
 import ArtPiece from "./ArtPiece";
-import { getCurrentUser } from "@/lib/sessions";
 
 const ArtsGrid = ({ arts, isInArtsPage }) => {
   return (

@@ -1,7 +1,7 @@
 import NotFoundPage from "@/components/NotFoundPage";
 import Stepper from "@/components/payment/Stepper";
 import { checkArtPieceExits, getArtPieceByTitle } from "@/lib/artPieces";
-import { getCurrentUser } from "@/lib/sessions";
+import { getCurrentUser } from "@/lib/users";
 import { getUserById } from "@/lib/users";
 import { redirect } from "next/navigation";
 import React from "react";

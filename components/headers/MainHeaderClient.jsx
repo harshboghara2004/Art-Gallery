@@ -57,7 +57,7 @@ const MainHeaderClient = ({ user }) => {
               >
                 <Image
                   src={user.photoUrl}
-                  width={40}
+                  width={30}
                   height={10}
                   alt="profile-photo"
                   className="rounded-full"

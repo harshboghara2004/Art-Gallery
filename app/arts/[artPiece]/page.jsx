@@ -7,7 +7,7 @@ import ReviewsGrid from "@/components/arts/ReviewsGrid";
 import LoadingData from "@/components/LoadingData";
 import Link from "next/link";
 import { checkArtPieceExists, getArtPieceByTitle } from "@/lib/artPieces";
-import { getCurrentUser } from "@/lib/sessions";
+import { getCurrentUser } from "@/lib/users";
 import PaymentButton from "@/components/arts/PaymentButton";
 import { getUserById } from "@/lib/users";
 import NotFoundPage from "@/components/NotFoundPage";
@@ -28,13 +28,13 @@ const ArtPiecePage = async ({ params }) => {
   if (artPieceData.buyerId !== null) {
     buyer = await getUserById(artPieceData.buyerId);
   }
-  // console.log(artPieceData);
+  // console.log(artPieceData.tags);
   // console.log(currentUser);
   return (
     <Suspense fallback={<LoadingData data="Art Piece" />}>
       <div className="pt-6">
-        {/* Image gallery */}
         <div className="m-auto h-1/2 flex flex-col md:flex-row lg:border-gray-200">
+          {/* Image gallery */}
           <div className="m-auto flex flex-col gap-y-4">
             <Image
               src={artPieceData.imageUrl}
@@ -53,9 +53,9 @@ const ArtPiecePage = async ({ params }) => {
               </Link>
             )}
           </div>
+          {/* Artist */}
           <div className="m-auto p-10 border-2 rounded-2xl">
-            {/* Artist */}
-            <Link href={convertedUrl(`/profile/${artPieceData.artist.name}`)}>
+            <Link href={`/profile/${artPieceData.artist.username}`}>
               <Image
                 src={artPieceData.artist.photoUrl}
                 width={150}
@@ -74,8 +74,8 @@ const ArtPiecePage = async ({ params }) => {
               {artPieceData.yearCreated}
             </p>
           </div>
+          {/* Price */}
           <div className="m-auto p-10 border-2 rounded-2xl">
-            {/* Price */}
             <p className="text-3xl mb-4 tracking-tight text-gray-900">
               Price: $ {artPieceData.price}
             </p>

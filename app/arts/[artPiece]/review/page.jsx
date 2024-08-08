@@ -5,7 +5,7 @@ import React from "react";
 
 import Image from "next/image";
 import logoImg from "@/public/assets/icon.png";
-import { getCurrentUser } from "@/lib/sessions";
+import { getCurrentUser } from "@/lib/users";
 import NotFoundPage from "@/components/NotFoundPage";
 import { redirect } from "next/navigation";
 

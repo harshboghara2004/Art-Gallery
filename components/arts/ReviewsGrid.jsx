@@ -3,7 +3,7 @@ import { StarIcon } from "@heroicons/react/20/solid";
 import Link from "next/link";
 import { convertedUrl } from "@/lib/url";
 import DeleteReviewForm from "../forms/DeleteReviewForm";
-import { getCurrentUser } from "@/lib/sessions";
+import { getCurrentUser } from "@/lib/users";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -27,6 +27,7 @@ const StarsImage = ({ stars }) => {
 };
 
 function ReviewCard({ review, currentUserId, title }) {
+  // console.log(review.user);
   return (
     <div key={review.user.id} className="mt-4 border-2 rounded-lg py-4 px-2">
       <div className="flex flex-row justify-between">
@@ -37,7 +38,7 @@ function ReviewCard({ review, currentUserId, title }) {
       </div>
       <div className="flex justify-between">
         <div className="mt-4">{review.comment}</div>
-        {currentUserId === review.user.id && (
+        {currentUserId === review.userId && (
           <DeleteReviewForm title={title} reviewId={review.id} />
         )}
       </div>
@@ -46,12 +47,6 @@ function ReviewCard({ review, currentUserId, title }) {
 }
 
 const AddReview = ({ title }) => {
-  const currentUser = getCurrentUser();
-  if (currentUser === undefined) {
-    return (
-      <p className="font-serif text-lg font-light italic"> Login to Review</p>
-    );
-  }
   return (
     <Link
       href={convertedUrl(`/arts/${title}/review`)}
@@ -71,7 +66,14 @@ const ReviewsGrid = ({ reviews, title, currentUserId }) => {
           Reviews ({reviews.length})
         </h2>
         <div>
-          <AddReview title={title} />
+          {currentUserId ? (
+            <AddReview title={title} />
+          ) : (
+            <p className="font-serif text-lg font-light italic">
+              {" "}
+              Login to Review
+            </p>
+          )}
         </div>
       </div>
 
