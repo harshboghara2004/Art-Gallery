@@ -1,31 +1,30 @@
-import UpdateProfileImage from "@/components/forms/UpdateProfileImage";
 import { getCurrentUser } from "@/lib/users";
 import Image from "next/image";
 import React from "react";
 import logoImg from "@/public/assets/icon.png";
 import { redirect } from "next/navigation";
 import { verifyAccessOfUpdateUser } from "@/lib/auth";
-import { checkUserExits } from "@/lib/users";
+import { checkUserExists } from "@/lib/users";
 import NotFoundPage from "@/components/NotFoundPage";
 
 const UpdateImagePage = async ({ params }) => {
   const { username } = params;
-  const currentUser = getCurrentUser();
+  const currentUser = await getCurrentUser();
   let convertedUsername = username.replace(/-/g, " ");
 
   if (currentUser === undefined) {
-    return redirect("/login");
+    return redirect("/sign-in");
   }
 
-  const checkExists = checkUserExits(convertedUsername);
-  if (!checkExists) {
-    return <NotFoundPage url={"/profile"} />;
-  }
+  // const checkExists = checkUserExits(convertedUsername);
+  // if (!checkExists) {
+  //   return <NotFoundPage url={"/profile"} />;
+  // }
 
-  const checkAccess = await verifyAccessOfUpdateUser(convertedUsername);
-  if (!checkAccess) {
-    redirect(`/profile/${username}`);
-  }
+  // const checkAccess = await verifyAccessOfUpdateUser(convertedUsername);
+  // if (!checkAccess) {
+  //   redirect(`/profile/${username}`);
+  // }
   return (
     <>
       <div className="mt-10 flex flex-col">
@@ -47,10 +46,10 @@ const UpdateImagePage = async ({ params }) => {
           share.
         </p>
       </div>
-      <UpdateProfileImage
+      {/* <UpdateProfileImage
         currentUser={currentUser}
         OldUrl={currentUser.photoUrl}
-      />
+      /> */}
     </>
   );
 };

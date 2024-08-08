@@ -1,5 +1,5 @@
 import ShareForm from "@/components/forms/ShareForm";
-import { currentUser } from "@clerk/nextjs/dist/types/server";
+import { currentUser } from "@clerk/nextjs/server";
 import React from "react";
 
 export default async function SharePage() {
@@ -10,7 +10,6 @@ export default async function SharePage() {
   // }
 
   const currentUse = await currentUser();
-
 
   return <ShareForm user={currentUse.name} />;
 }
