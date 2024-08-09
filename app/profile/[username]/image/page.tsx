@@ -3,7 +3,6 @@ import Image from "next/image";
 import React from "react";
 import logoImg from "@/public/assets/icon.png";
 import { redirect } from "next/navigation";
-import { verifyAccessOfUpdateUser } from "@/lib/auth";
 import { checkUserExists } from "@/lib/users";
 import NotFoundPage from "@/components/NotFoundPage";
 

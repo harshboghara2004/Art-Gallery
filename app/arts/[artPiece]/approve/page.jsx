@@ -1,6 +1,5 @@
 import ArtPiece from "@/components/arts/ArtPiece";
 import { checkArtPieceExists, getArtPieceByTitle } from "@/lib/artPieces";
-// import { verifyAccessOfArtPiece } from "@/lib/auth";
 import { getCurrentUser } from "@/lib/users";
 import { getUserById } from "@/lib/users";
 import React from "react";

@@ -1,10 +1,9 @@
 import React from "react";
 import {
-  checkUserExits,
+  checkUserExists,
   getFirstAndLastName,
   getUserByName,
 } from "@/lib/users";
-import { verifyAccessOfUpdateUser } from "@/lib/auth";
 import { redirect } from "next/navigation";
 // import UpdateForm from "@/components/forms/UpdateForm";
 import { getCurrentUser } from "@/lib/users";
