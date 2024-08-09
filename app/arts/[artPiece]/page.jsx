@@ -1,5 +1,5 @@
 import React, { Suspense } from "react";
-import { convertedUrl, convertedUrlBack } from "@/lib/url";
+import { convertedUrlBack } from "@/lib/url";
 import Image from "next/image";
 import locationPin from "@/public/assets/location-pin.svg";
 import TagsGrid from "@/components/arts/TagsGrid";
@@ -16,10 +16,10 @@ const ArtPiecePage = async ({ params }) => {
   const { artPiece } = params;
   const title = convertedUrlBack(artPiece);
 
-  const checkExists = await checkArtPieceExists(title);
-  if (!checkExists) {
-    return <NotFoundPage url={"/arts"} />;
-  }
+  // const checkExists = await checkArtPieceExists(title);
+  // if (!checkExists) {
+  //   return <NotFoundPage url={"/arts"} />;
+  // }
 
   const artPieceData = await getArtPieceByTitle(title);
   const currentUser = await getCurrentUser();
@@ -84,7 +84,6 @@ const ArtPiecePage = async ({ params }) => {
               currentUser && artPieceData.artistId !== currentUser.id ? (
                 <PaymentButton
                   artPiece={artPieceData}
-                  currentUserId={currentUser.id}
                 />
               ) : (
                 <div className="flex w-full items-center justify-center rounded-md border border-transparent bg-gray-600 px-8 py-3 text-base font-medium text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2">

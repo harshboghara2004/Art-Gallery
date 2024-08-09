@@ -3,7 +3,7 @@
 import React from "react";
 import { initiatePayment } from "@/actions/payment-actions";
 
-const PaymentButton = ({ artPiece, currentUserId }) => {
+const PaymentButton = ({ artPiece }) => {
   // console.log(artPiece);
 
   const handlePaymentButton = async () => {

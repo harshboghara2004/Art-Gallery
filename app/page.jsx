@@ -15,7 +15,7 @@ export default function Example() {
       </div>
       <div className="text-center">
         <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
-          Discover Art. <br /> Connect with Creativity.
+          Discover Arts. <br /> Connect with Creativity.
         </h1>
         <p className="mt-6 text-lg leading-8 text-gray-600">
           Embark on a journey through creativity. Explore a curated collection

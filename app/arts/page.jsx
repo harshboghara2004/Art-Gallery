@@ -1,8 +1,7 @@
+import React, { Suspense } from "react";
 import ArtsGrid from "@/components/arts/ArtsGrid";
 import LoadingData from "@/components/LoadingData";
 import { getAllArtPieces } from "@/lib/artPieces";
-import React, { Suspense } from "react";
-
 
 const ArtsPage = async () => {
   const arts = await getAllArtPieces();

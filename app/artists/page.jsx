@@ -1,7 +1,7 @@
+import React, { Suspense } from "react";
 import ArtistCard from "@/components/artists/ArtistCard";
 import LoadingData from "@/components/LoadingData";
 import { getAllUsers } from "@/lib/users";
-import React, { Suspense } from "react";
 
 const AristsPage = async () => {
   let allArtists = await getAllUsers();

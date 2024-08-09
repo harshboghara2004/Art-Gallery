@@ -10,10 +10,6 @@ import NavigationTabs from "./NavigationTabs";
 import { useAuth } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 
-export const convertedUrl = (url) => {
-  return url.replace(/ /g, "-");
-};
-
 const MainHeaderClient = ({ user }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { signOut } = useAuth();
@@ -51,10 +47,7 @@ const MainHeaderClient = ({ user }) => {
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
           {user ? (
             <div className="flex gap-x-2">
-              <Link
-                href={convertedUrl(`/profile/${user.name}`)}
-                className="flex gap-x-2"
-              >
+              <Link href={`/profile/${user.username}`} className="flex gap-x-2">
                 <Image
                   src={user.photoUrl}
                   width={30}
@@ -117,7 +110,7 @@ const MainHeaderClient = ({ user }) => {
                 {user ? (
                   <div className="flex gap-x-2">
                     <Link
-                      href={convertedUrl(`/profile/${user.name}`)}
+                      href={`/profile/${user.username}`}
                       className="flex gap-x-2"
                     >
                       <Image

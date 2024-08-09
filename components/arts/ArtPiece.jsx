@@ -41,7 +41,7 @@ const ArtPiece = ({ access, art, isInArtsPage }) => {
           <div className="flex gap-x-2 text-sm leading-6 mb-1">
             <p className="text-gray-900 italic p-1">Designed by: </p>
             <Link
-              href={convertedUrl(`/profile/${art.artist.name}`)}
+              href={`/profile/${art.artist.username}`}
               className="flex gap-x-2"
             >
               <Image
