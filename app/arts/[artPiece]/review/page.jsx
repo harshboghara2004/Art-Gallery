@@ -11,16 +11,19 @@ import { redirect } from "next/navigation";
 import { convertedUrlBack } from "@/lib/url";
 
 const ReviewPage = async ({ params }) => {
+  // check login
   const currentUser = await getCurrentUser();
   if (currentUser === undefined) {
-    redirect("/login");
+    redirect("/sign-in");
   }
+
+  // get art-piece data if exists
   const { artPiece } = params;
-  // const checkExists = checkArtPieceExists(artPiece);
-  // if (!checkExists) {
-  //   return <NotFoundPage url={"/arts"} />;
-  // }
   const artPieceData = await getArtPieceByTitle(convertedUrlBack(artPiece));
+  if (artPieceData === null) {
+    return <NotFoundPage url={"/arts"} />;
+  }
+
   return (
     <>
       <div className="mt-10 flex flex-col">

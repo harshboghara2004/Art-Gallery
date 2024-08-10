@@ -1,5 +1,6 @@
 import ShareForm from "@/components/forms/ShareForm";
-import { currentUser } from "@clerk/nextjs/server";
+import { getCurrentUser } from "@/lib/users";
+import { redirect } from "next/navigation";
 import React from "react";
 
 export default async function SharePage() {
@@ -9,7 +10,11 @@ export default async function SharePage() {
   //   return redirect("/");
   // }
 
-  const currentUse = await currentUser();
+  const currentUser = await getCurrentUser();
+
+  if (currentUser === undefined) {
+    redirect(`/sign-in`);
+  }
 
   return <ShareForm user={currentUse.name} />;
 }

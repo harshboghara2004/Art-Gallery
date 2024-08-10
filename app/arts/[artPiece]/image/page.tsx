@@ -9,20 +9,25 @@ import NotFoundPage from "@/components/NotFoundPage";
 import { convertedUrlBack } from "@/lib/url";
 
 export default async function Page({ params }) {
+  // check login
   const currentUser = await getCurrentUser();
   if (currentUser === undefined) {
     redirect("/sign-in");
   }
+
+  // get art-piece data if exists
   const { artPiece } = params;
-  const checkExists = checkArtPieceExists(artPiece);
-  if (!checkExists) {
+  const artPieceData = await getArtPieceByTitle(convertedUrlBack(artPiece));
+  if (artPieceData === null) {
     return <NotFoundPage url={"/arts"} />;
   }
-  // const checkAccess = await verifyAccessOfArtPiece(artPiece);
-  // if (!checkAccess) {
-  //   redirect(`/arts/${artPiece}`);
-  // }
-  const artPieceData = await getArtPieceByTitle(convertedUrlBack(artPiece));
+
+  // check access
+  const access = currentUser.id === artPieceData.artistId;
+  if (!access) {
+    redirect(`/arts/${artPiece}`);
+  }
+
   return (
     <>
       <div className="mt-10 flex flex-col">

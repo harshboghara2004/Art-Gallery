@@ -6,7 +6,7 @@ import TagsGrid from "@/components/arts/TagsGrid";
 import ReviewsGrid from "@/components/arts/ReviewsGrid";
 import LoadingData from "@/components/LoadingData";
 import Link from "next/link";
-import { checkArtPieceExists, getArtPieceByTitle } from "@/lib/artPieces";
+import { getArtPieceByTitle } from "@/lib/artPieces";
 import { getCurrentUser } from "@/lib/users";
 import PaymentButton from "@/components/arts/PaymentButton";
 import { getUserById } from "@/lib/users";
@@ -16,12 +16,11 @@ const ArtPiecePage = async ({ params }) => {
   const { artPiece } = params;
   const title = convertedUrlBack(artPiece);
 
-  // const checkExists = await checkArtPieceExists(title);
-  // if (!checkExists) {
-  //   return <NotFoundPage url={"/arts"} />;
-  // }
-
   const artPieceData = await getArtPieceByTitle(title);
+  if (artPieceData === null) {
+    return <NotFoundPage url={"/arts"} />;
+  }
+
   const currentUser = await getCurrentUser();
   let buyer;
 
@@ -82,9 +81,7 @@ const ArtPiecePage = async ({ params }) => {
             {/* Buy */}
             {artPieceData.buyerId === null ? (
               currentUser && artPieceData.artistId !== currentUser.id ? (
-                <PaymentButton
-                  artPiece={artPieceData}
-                />
+                <PaymentButton artPiece={artPieceData} />
               ) : (
                 <div className="flex w-full items-center justify-center rounded-md border border-transparent bg-gray-600 px-8 py-3 text-base font-medium text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2">
                   {currentUser ? "You are Owner" : "Not Available"}

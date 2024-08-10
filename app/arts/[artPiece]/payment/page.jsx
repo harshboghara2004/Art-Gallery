@@ -8,23 +8,30 @@ import { redirect } from "next/navigation";
 import React from "react";
 
 const ArtPiecePage = async ({ params }) => {
-  const { artPiece } = params;
+  // check login
   const currentUser = await getCurrentUser();
   if (currentUser === undefined) {
     redirect("/sign-in");
   }
-  // const checkExists = checkArtPieceExits(artPiece);
-  // if (!checkExists) {
-  //   return <NotFoundPage url={"/arts"} />;
-  // }
-  // const artPieceData = getArtPieceByTitle({ title: artPiece });
-  // if (artPieceData.paymentStatus === 0) {
-  //   redirect(`/arts/${artPiece}`);
-  // }
-  const artPieceData = await getArtPieceByTitle(convertedUrlBack(artPiece));
 
+  // get art-piece data if exists
+  const { artPiece } = params;
+  const artPieceData = await getArtPieceByTitle(convertedUrlBack(artPiece));
+  if (artPieceData === null) {
+    return <NotFoundPage url={"/arts"} />;
+  }
+
+  // check payment started or not
+  if (artPieceData.buyerId === null) {
+    redirect(`/arts/${artPiece}`);
+  }
   const buyer = await getUserById(artPieceData.buyerId);
-  if (buyer.id !== currentUser.id && artPieceData.artistId !== currentUser.id) {
+
+  // check access
+  const access =
+    currentUser.id === artPieceData.artistId ||
+    currentUser.id === artPieceData.buyerId;
+  if (!access) {
     redirect(`/arts/${artPiece}`);
   }
 
