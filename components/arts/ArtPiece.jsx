@@ -5,8 +5,7 @@ import TimeAndPlace from "./TimeAndPlace";
 import Link from "next/link";
 import { convertedUrl } from "@/lib/url";
 
-const ArtPiece = ({ access, art, isInArtsPage }) => {
-  // console.log(art);
+const ArtPiece = async ({ access, art, isInArtsPage }) => {
   return (
     <article
       key={art.title}

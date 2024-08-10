@@ -1,13 +1,10 @@
 import ArtPiece from "@/components/arts/ArtPiece";
 import LoadingData from "@/components/LoadingData";
-import NotFoundPage from "@/components/NotFoundPage";
-import { getAllArtsByUserId } from "@/lib/artPieces";
 import {
-  checkUserExists,
-  getCurrentUser,
-  getUserByName,
-  getUserByUsername,
-} from "@/lib/users";
+  getAllArtsByUserId,
+  getAllPurchasedArtsByUserId,
+} from "@/lib/artPieces";
+import { getCurrentUser, getUserByUsername } from "@/lib/users";
 import Image from "next/image";
 import Link from "next/link";
 import React, { Suspense } from "react";
@@ -24,6 +21,9 @@ const ProfilePageOfUser = async ({ params }) => {
   const user = await getUserByUsername(username);
   // console.log(user);
   const artPieces = await getAllArtsByUserId(user.id);
+  const purchasedArts = await getAllPurchasedArtsByUserId(user.id);
+  // console.log(purchasedArts);
+
   // console.log(artPieces);
   // console.log(currentUser);
   // return <p>{username}</p>
@@ -72,7 +72,7 @@ const ProfilePageOfUser = async ({ params }) => {
           )}
         </div>
         <hr className="mx-8 border-t border-gray-300" />
-
+        {/* Created Arts */}
         <div className="ml-2 p-10 pt-2">
           <p className="font-serif text-2xl font-medium mb-3">
             {artPieces.length > 0
@@ -83,6 +83,27 @@ const ProfilePageOfUser = async ({ params }) => {
             <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-2 ">
               {artPieces.length > 0 &&
                 artPieces.map((art) => (
+                  <ArtPiece
+                    access={false}
+                    key={art.title}
+                    art={art}
+                    isInArtsPage={false}
+                  />
+                ))}
+            </div>
+          </Suspense>
+        </div>
+
+        <hr className="mx-8 border-t border-gray-300" />
+        {/* Purchased Arts */}
+        <div className="ml-2 p-10 pt-2">
+          <p className="font-serif text-2xl font-medium mb-3">
+            {purchasedArts.length > 0 && "Purchased Arts:"}
+          </p>
+          <Suspense fallback={<LoadingData data={`Arts of ${user.name}`} />}>
+            <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-2 ">
+              {purchasedArts.length > 0 &&
+                purchasedArts.map((art) => (
                   <ArtPiece
                     access={false}
                     key={art.title}

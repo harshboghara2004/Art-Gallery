@@ -7,7 +7,7 @@ import { redirect } from "next/navigation";
 import React from "react";
 
 const EditArtPage = async ({ params }) => {
-  const currentUser = getCurrentUser();
+  const currentUser = await getCurrentUser();
   if (currentUser === undefined) {
     redirect("/sign-in");
   }

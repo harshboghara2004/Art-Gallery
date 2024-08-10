@@ -6,6 +6,7 @@ import {
   updateArtPiece,
   updateArtPieceImageUrl,
 } from "@/lib/artPieces";
+import { convertedUrl } from "@/lib/url";
 import { revalidatePath, revalidateTag } from "next/cache";
 import { redirect } from "next/navigation";
 
@@ -17,7 +18,7 @@ export async function shareArt({ artData, urls }) {
     title: artData.title,
     gallery: artData.gallery,
     city: artData.city,
-    price: artData.price,
+    price: parseFloat(artData.price),
     country: artData.country,
     medium: artData.medium,
     description: artData.description || "Not Specified By Artist.",
@@ -33,7 +34,7 @@ export async function editArt({ artData }) {
     title: artData.title,
     gallery: artData.gallery,
     city: artData.city,
-    price: artData.price,
+    price: parseFloat(artData.price),
     country: artData.country,
     medium: artData.medium,
     description: artData.description,
@@ -41,13 +42,13 @@ export async function editArt({ artData }) {
 
   await updateArtPiece(artPiece);
   revalidatePath(`/arts`);
-  redirect(`/arts`);
+  redirect(convertedUrl(`/arts/${title}`));
 }
 
 export async function editArtImage(newImageUrl, title) {
   await updateArtPieceImageUrl(newImageUrl, title);
   revalidatePath(`/arts`);
-  redirect(`/arts`);
+  redirect(convertedUrl(`/arts/${title}`));
 }
 
 export async function deleteArt(title) {

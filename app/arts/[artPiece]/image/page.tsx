@@ -9,7 +9,7 @@ import NotFoundPage from "@/components/NotFoundPage";
 import { convertedUrlBack } from "@/lib/url";
 
 export default async function Page({ params }) {
-  const currentUser = getCurrentUser();
+  const currentUser = await getCurrentUser();
   if (currentUser === undefined) {
     redirect("/sign-in");
   }

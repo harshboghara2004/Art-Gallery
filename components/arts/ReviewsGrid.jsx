@@ -3,7 +3,6 @@ import { StarIcon } from "@heroicons/react/20/solid";
 import Link from "next/link";
 import { convertedUrl } from "@/lib/url";
 import DeleteReviewForm from "../forms/DeleteReviewForm";
-import { getCurrentUser } from "@/lib/users";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
