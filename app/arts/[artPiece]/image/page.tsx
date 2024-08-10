@@ -1,5 +1,5 @@
 import React from "react";
-import { checkArtPieceExists, getArtPieceByTitle } from "@/lib/artPieces";
+import { getArtPieceByTitle } from "@/lib/artPieces";
 import { redirect } from "next/navigation";
 import UpdateImage from "@/components/forms/UpdateImage";
 import Image from "next/image";

@@ -3,36 +3,34 @@ import {
   checkUserExists,
   getFirstAndLastName,
   getUserByName,
+  getUserByUsername,
 } from "@/lib/users";
 import { redirect } from "next/navigation";
 // import UpdateForm from "@/components/forms/UpdateForm";
 import { getCurrentUser } from "@/lib/users";
 import NotFoundPage from "@/components/NotFoundPage";
+import UpdateForm from "@/components/forms/UpdateForm";
 
 const UpdateProfilePage = async ({ params }) => {
-  const { username } = params;
-  let convertedUsername = username.replace(/-/g, " ");
-
+  // check login
   const currentUser = await getCurrentUser();
   if (currentUser === undefined) {
-    return redirect("/login");
+    redirect("/sign-in");
   }
 
-  // const checkExists = checkUserExits(convertedUsername);
-  // if (!checkExists) {
-  //   return <NotFoundPage url={"/profile"} />;
-  // }
+  // check user exits
+  const { username } = params;
+  const user = await getUserByUsername(username);
+  if (user === null) {
+    redirect("/");
+  }
 
-  // const checkAccess = await verifyAccessOfUpdateUser(convertedUsername);
-  // if (!checkAccess) {
-  //   redirect(`/profile/${username}`);
-  // }
-
-  let user = getUserByName(convertedUsername);
-  let [firstName, lastName] = getFirstAndLastName(convertedUsername);
-  user = { ...user, firstName, lastName };
-  return <p>In Development</p>;
-  // return <UpdateForm user={user} />;
+  // check access
+  const access = currentUser.id === user.id;
+  if (!access) {
+    redirect(`/profile/${username}`);
+  }
+  return <UpdateForm user={user} />;
 };
 
 export default UpdateProfilePage;

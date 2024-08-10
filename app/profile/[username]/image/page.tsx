@@ -1,29 +1,30 @@
-import { getCurrentUser } from "@/lib/users";
+import { getCurrentUser, getUserByUsername } from "@/lib/users";
 import Image from "next/image";
 import React from "react";
 import logoImg from "@/public/assets/icon.png";
 import { redirect } from "next/navigation";
-import { checkUserExists } from "@/lib/users";
-import NotFoundPage from "@/components/NotFoundPage";
+import UpdateProfileImage from "@/components/forms/UpdateProfileImage";
 
 const UpdateImagePage = async ({ params }) => {
-  const { username } = params;
+  // check login
   const currentUser = await getCurrentUser();
-  let convertedUsername = username.replace(/-/g, " ");
-
   if (currentUser === undefined) {
-    return redirect("/sign-in");
+    redirect("/sign-in");
   }
 
-  // const checkExists = checkUserExits(convertedUsername);
-  // if (!checkExists) {
-  //   return <NotFoundPage url={"/profile"} />;
-  // }
+  // check user exits
+  const { username } = params;
+  const user = await getUserByUsername(username);
+  if (user === null) {
+    redirect("/");
+  }
 
-  // const checkAccess = await verifyAccessOfUpdateUser(convertedUsername);
-  // if (!checkAccess) {
-  //   redirect(`/profile/${username}`);
-  // }
+  // check access
+  const access = currentUser.id === user.id;
+  if (!access) {
+    redirect(`/profile/${username}`);
+  }
+
   return (
     <>
       <div className="mt-10 flex flex-col">
@@ -45,10 +46,10 @@ const UpdateImagePage = async ({ params }) => {
           share.
         </p>
       </div>
-      {/* <UpdateProfileImage
+      <UpdateProfileImage
         currentUser={currentUser}
         OldUrl={currentUser.photoUrl}
-      /> */}
+      />
     </>
   );
 };

@@ -7,26 +7,23 @@ import {
 import { getCurrentUser, getUserByUsername } from "@/lib/users";
 import Image from "next/image";
 import Link from "next/link";
-import React, { Suspense } from "react";
+import { redirect } from "next/navigation";
+import React, { Suspense, use } from "react";
 
 const ProfilePageOfUser = async ({ params }) => {
+  // check user exits
   const { username } = params;
-  // const checkExists = checkUserExists(convertedUsername);
-  // console.log(checkExists);
-  // if (!checkExists) {
-  //   return <NotFoundPage url={"/profile"} />;
-  // }
-
-  const currentUser = await getCurrentUser();
   const user = await getUserByUsername(username);
-  // console.log(user);
+  if (user === null) {
+    redirect("/");
+  }
+
   const artPieces = await getAllArtsByUserId(user.id);
   const purchasedArts = await getAllPurchasedArtsByUserId(user.id);
-  // console.log(purchasedArts);
 
-  // console.log(artPieces);
-  // console.log(currentUser);
-  // return <p>{username}</p>
+  // check access
+  const currentUser = await getCurrentUser();
+  const access = currentUser && currentUser.id === user.id;
 
   return (
     <div className="lg:flex p-10">
@@ -39,7 +36,7 @@ const ProfilePageOfUser = async ({ params }) => {
           className="rounded-3xl"
           // fill
         />
-        {currentUser && user.id === currentUser.id && (
+        {access && (
           <Link
             href={`/profile/${username}/image`}
             className="mx-auto w-24 inline-flex px-4 text-center items-center rounded-md bg-blue-50 py-1 text-xs font-semibold text-blue-700 ring-1 ring-inset ring-blue-700/10"
@@ -62,7 +59,7 @@ const ProfilePageOfUser = async ({ params }) => {
               {user.email}
             </Link>
           </div>
-          {currentUser && user.id === currentUser.id && (
+          {access && (
             <Link
               href={`/profile/${username}/update`}
               className=" m-auto inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10"

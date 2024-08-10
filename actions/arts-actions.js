@@ -11,8 +11,6 @@ import { revalidatePath, revalidateTag } from "next/cache";
 import { redirect } from "next/navigation";
 
 export async function shareArt({ artData, urls }) {
-  // console.log(artData);
-  // console.log(urls);
 
   const artPiece = {
     title: artData.title,
@@ -29,6 +27,7 @@ export async function shareArt({ artData, urls }) {
   revalidateTag("arts");
   redirect("/arts");
 }
+
 export async function editArt({ artData }) {
   const artPiece = {
     title: artData.title,

@@ -1,8 +1,7 @@
+import React from "react";
 import ArtPiece from "@/components/arts/ArtPiece";
 import ReviewForm from "@/components/forms/ReviewForm";
-import { checkArtPieceExists, getArtPieceByTitle } from "@/lib/artPieces";
-import React from "react";
-
+import { getArtPieceByTitle } from "@/lib/artPieces";
 import Image from "next/image";
 import logoImg from "@/public/assets/icon.png";
 import { getCurrentUser } from "@/lib/users";

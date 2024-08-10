@@ -1,7 +1,7 @@
 import ArtPiece from "@/components/arts/ArtPiece";
 import DeleteArtForm from "@/components/forms/DeleteArtForm";
-// import NotFoundPage from "@/components/NotFoundPage";
-import { checkArtPieceExists, getArtPieceByTitle } from "@/lib/artPieces";
+import NotFoundPage from "@/components/NotFoundPage";
+import {  getArtPieceByTitle } from "@/lib/artPieces";
 import { convertedUrlBack } from "@/lib/url";
 import { getCurrentUser } from "@/lib/users";
 import Link from "next/link";

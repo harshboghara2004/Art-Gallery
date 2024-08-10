@@ -16,7 +16,7 @@ const MainHeaderClient = ({ user }) => {
 
   const handleLogout = async () => {
     await signOut();
-    redirect("/sign-in");
+    redirect("/");
   };
 
   return (

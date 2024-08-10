@@ -6,7 +6,7 @@ import React from "react";
 import ApproveForm from "@/components/forms/ApproveForm";
 import { convertedUrlBack } from "@/lib/url";
 import { redirect } from "next/navigation";
-// import NotFoundPage from "@/components/NotFoundPage";
+import NotFoundPage from "@/components/NotFoundPage";
 
 const ApprovePage = async ({ params }) => {
   // check login

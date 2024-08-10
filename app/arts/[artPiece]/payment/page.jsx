@@ -1,6 +1,6 @@
 import NotFoundPage from "@/components/NotFoundPage";
 import Stepper from "@/components/payment/Stepper";
-import { checkArtPieceExits, getArtPieceByTitle } from "@/lib/artPieces";
+import { getArtPieceByTitle } from "@/lib/artPieces";
 import { convertedUrlBack } from "@/lib/url";
 import { getCurrentUser } from "@/lib/users";
 import { getUserById } from "@/lib/users";
