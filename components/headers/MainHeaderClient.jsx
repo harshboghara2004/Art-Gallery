@@ -7,15 +7,17 @@ import logoImg from "@/public/assets/icon.png";
 import { useState } from "react";
 import Link from "next/link";
 import NavigationTabs from "./NavigationTabs";
-import { useAuth } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
+import { useAuth } from "@clerk/nextjs";
+import { revalidatePath } from "next/cache";
 
 const MainHeaderClient = ({ user }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { signOut } = useAuth();
 
-  const handleLogout = async () => {
+  const handleSignOut = async () => {
     await signOut();
+    revalidatePath("/", "layout");
     redirect("/");
   };
 
@@ -60,7 +62,7 @@ const MainHeaderClient = ({ user }) => {
               <span className="sm:ml-3">
                 <button
                   type="submit"
-                  onClick={handleLogout}
+                  onClick={handleSignOut}
                   className="inline-flex items-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                 >
                   Log Out
@@ -124,7 +126,7 @@ const MainHeaderClient = ({ user }) => {
                     </Link>
                     <span className="sm:ml-3">
                       <button
-                        onClick={handleLogout}
+                        onClick={handleSignOut}
                         type="submit"
                         className="inline-flex items-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                       >
