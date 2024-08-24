@@ -16,5 +16,5 @@ export default async function SharePage() {
     redirect(`/sign-in`);
   }
 
-  return <ShareForm user={currentUse.name} />;
+  return <ShareForm user={currentUser.name} />;
 }
